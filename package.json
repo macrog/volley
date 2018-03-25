@@ -1,0 +1,18 @@
+{
+  "name": "volleyscores",
+  "version": "1.0.0",
+  "description": "MEAN 2",
+  "main": "server.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.2",
+    "bootstrap": "^4.0.0",
+    "cors": "~2.8.3",
+    "express": "~4.15.3",
+    "mongoose": "~4.11.0"
+  },
+  "author": "Maciej Gorczynski",
+  "license": "ISC"
+}

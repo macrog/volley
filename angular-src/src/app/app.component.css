@@ -1,0 +1,105 @@
+.m-r-20{
+    margin-right: 20px;
+}
+.m-b-20{
+    margin-bottom: 20px;
+}
+.m-l-20{
+    margin-left: 20px;
+}
+.m-t-20{
+    margin-top: 20px;
+}
+.m-r-10{
+    margin-right: 10px;
+}
+.m-b-10{
+    margin-bottom: 10px;
+}
+.m-l-10{
+    margin-left: 10px;
+}
+.m-t-10{
+    margin-top: 10px;
+}
+.m-r-5{
+    margin-right: 5px;
+}
+.m-b-5{
+    margin-bottom: 5px;
+}
+.m-l-5{
+    margin-left: 5px;
+}
+.m-t-5{
+    margin-top: 5px;
+}
+.p-l-r-0{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.m-l-r-0{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.d-i-b{
+    display: inline-block;
+}
+.full-screen{
+    height: 100%;
+}
+.overflow{
+    overflow: scroll;
+    overflow-x: hidden;
+}
+#game-container{    
+    height: 50px;
+    border: 1px solid #c7c6c6;
+}
+#country, #leaugue{
+    border-right: 1px solid #c7c6c6;
+    text-align: center;
+    line-height: 50px;
+}
+#team-container{
+    line-height: 24px;
+}
+.right-border{
+    border-right: 1px solid #c7c6c6;
+}
+.bottom-border{
+    border-bottom: 1px solid #c7c6c6;
+}
+.text-overflow{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.point-holder{
+    width: 7px;
+    height: 7px;
+    margin-right: 1px;
+}
+.red{
+    background-color: red;
+}
+#main-container-wrapper, #main-container{
+    height: 100%;
+}
+#games-container{
+    height: 80%;
+    position: absolute;
+    bottom: 0;
+}
+.w-50px{
+    width: 50px;
+}
+.odd{
+    background-color: white;
+}
+.even{
+    background-color: #e6e6e6;
+}
+.women{
+    color: #ff5e7a;
+}

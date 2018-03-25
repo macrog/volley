@@ -1,0 +1,130 @@
+
+<div class="container p-l-r-0" id="main-container-wrapper">
+    <div id="main-container">
+        <div class="m-t-10">
+            <button type="button" class="btn btn-secondary btn-sm" (click)="readLocalDataFolder();">READ Local</button>
+            <button type="button" class="btn btn-primary btn-sm" (click)="uploadGamesToDB();">UPLOAD</button>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="readDBGames();">READ DB</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="deleteGame();">DELETE ID</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="deleteAllGame();">X</button>
+            <button type="button" class="btn btn-primary btn-sm" (click)="clearScreen();">CLEAR</button>
+            
+            <div class="m-l-10 d-i-b"  *ngIf="games">
+                {{numberFilesRead}} {{numberFilesRead === 1 ? 'game' : 'games'}}
+            </div> 
+            
+        </div>
+        
+        <div class="row m-t-10">
+            <div class="col-2">
+                Home 
+                <select class="w-50px" [(ngModel)]="homeQuerryPoints">
+                    <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
+                </select>
+            </div>
+            <div class="col-2">
+                Away 
+                <select class="w-50px" [(ngModel)]="awayQuerryPoints">
+                    <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
+                </select>
+            </div>
+            <div class="col-2">
+                <button type="button" [disabled]="!homeQuerryPoints || !awayQuerryPoints" class="btn btn-primary btn-sm" (click)="searchDBForScore();">search DB</button>
+            </div>
+        </div>
+
+        <div class="container p-l-r-0 m-t-10 overflow" id="games-container" *ngIf="games">
+            <div class="m-t-5" *ngFor="let game of games; let ind = index;">
+                <div id="game-container" [ngClass]="{'odd' : ind % 2 === 0, 'even' : ind % 2 !== 0, 'women' : !game.men}">
+                    <div class="row m-l-r-0" style="height: 49px;">
+                        <div id="country" class="col-1 p-l-r-0 text-overflow" data-toggle="tooltip" data-placement="top" title="{{ game.location }}"> {{ game.location }} </div>
+                        <div id="leaugue" class="col-3 p-l-r-0 text-overflow" data-toggle="tooltip" data-placement="top" title="{{ game.leaugue }}"> {{ game.leaugue }} </div>
+                        <div class="col-8 p-l-r-0">
+                            <div id="team-container" class="col-12 p-l-r-0">
+                                <div class="row m-l-r-0 bottom-border">
+                                    <div class="col-4 p-l-r-0 text-overflow right-border" [ngClass]="game.team1Set > game.team2Set ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="{{ game.team1Name }}"> {{ game.team1Name }} </div>
+                                    <div class="col-8 p-l-r-0">
+                                        <div class="row m-l-r-0 text-center">
+                                            <div class="col-7 p-l-r-0 right-border" style="display: inline-flex;"> 
+                                                <div [ngClass]="{'font-weight-bold' : game.team1Set > game.team2Set}" class="col-2 right-border" data-toggle="tooltip" data-placement="top" title="Sets" (click)="getSetsByGameId(game._id)">
+                                                    {{ game.team1Set }}
+                                                </div>
+                                                <div *ngFor="let set of game.setsFinal" class="col-2 right-border">
+                                                    {{ set | getset:0}}
+                                                </div>
+                                            </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team1Points > game.team2Points ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Points"> {{ game.team1Points }} </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team1Kills > game.team2Kills ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Kills"> {{ game.team1Kills }} </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team1Blocks > game.team2Blocks ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Blocks"> {{ game.team1Blocks }} </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team1Aces > game.team2Aces ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Aces"> {{ game.team1Aces }} </div>
+                                            <div class="col-1 p-l-r-0" [ngClass]="game.team1ServiceErrors > game.team2ServiceErrors ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Service Errors"> {{ game.team1ServiceErrors }} </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-7 p-l-r-0">
+                                        <div class="row m-l-r-0 text-center">
+                                            <div class="col-4 p-l-r-0">
+                                                <div class="row m-l-r-0 text-center" style="display: -webkit-box;">
+                                                    <div class="col-2" *ngFor="let set of game.sets">
+                                                        {{ getSetPoints(0, set) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8 p-l-r-0" *ngFor="let set of game.sets; let k = index;" style="display: -webkit-box;">                                            
+                                                <div *ngIf="k === 0 " style="display: -webkit-box;">
+                                                    <div *ngFor="let points of set; let i = index;">
+                                                        <div class="point-holder" [ngClass]="getPoint(points, set[i - 1], 0)">&nbsp;</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div id="team-container" class="col-12 p-l-r-0">
+                                <div class="row m-l-r-0">
+                                    <div class="col-4 p-l-r-0 text-overflow right-border" [ngClass]="game.team2Set > game.team1Set ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="{{ game.team2Name }}"> {{ game.team2Name }} </div>
+                                    <div class="col-8 p-l-r-0">
+                                        <div class="row m-l-r-0 text-center">
+                                            <div class="col-7 p-l-r-0 right-border" style="display: inline-flex;">
+                                                <div [ngClass]="{'font-weight-bold' : game.team2Set > game.team1Set}" class="col-2 right-border" data-toggle="tooltip" data-placement="top" title="Sets" (click)="getSetsByGameId(game._id)">
+                                                    {{ game.team2Set }}
+                                                </div>
+                                                <div *ngFor="let set of game.setsFinal" class="col-2 right-border">
+                                                    {{ set | getset:1}}
+                                                </div>
+                                            </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team2Points > game.team1Points ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Points"> {{ game.team2Points }} </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team2Kills > game.team1Kills ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Kills"> {{ game.team2Kills }} </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team2Blocks > game.team1Blocks ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Blocks"> {{ game.team2Blocks }} </div>
+                                            <div class="col-1 p-l-r-0 right-border" [ngClass]="game.team2Aces > game.team1Aces ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Aces"> {{ game.team2Aces }} </div>
+                                            <div class="col-1 p-l-r-0" [ngClass]="game.team2ServiceErrors > game.team1ServiceErrors ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="Service Errors"> {{ game.team2ServiceErrors }} </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-7 p-l-r-0">
+                                        <div class="row m-l-r-0 text-center">
+                                            <div class="col-4 p-l-r-0">
+                                                <div class="row m-l-r-0 text-center" style="display: -webkit-box;">
+                                                    <div class="col-2" *ngFor="let set of game.sets">
+                                                        {{ getSetPoints(1, set) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8 p-l-r-0" *ngFor="let set of game.sets; let k = index;" style="display: -webkit-box;">                                            
+                                                <div *ngIf="k === 0 " style="display: -webkit-box;">
+                                                    <div *ngFor="let points of set; let i = index;">
+                                                        <div class="point-holder" [ngClass]="getPoint(points, set[i - 1], 1)">&nbsp;</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
