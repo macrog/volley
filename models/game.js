@@ -112,3 +112,10 @@ module.exports.findByScore = (param, callback) => {
 module.exports.getSets = (id, callback) => {
     GameList.find({"_id" : id}, {pointByPoint: 1}, callback);
 }
+
+
+//-------------------------------------GENERAL-----------------------------------------//
+//distinct() returns unique values of a field in DB
+module.exports.getCountriesList = (callback) => {
+    GameList.distinct('location' ,callback);
+}

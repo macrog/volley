@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { GameService } from 'services/game.service';
 import { HttpService } from 'services/http.service';
 import { GetSetPipe } from 'pipes/getset.pipe';
+import { GeneralService } from 'services/general.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { GetSetPipe } from 'pipes/getset.pipe';
     FormsModule,
     HttpModule
   ],
-  providers: [HttpService, GameService],
+  providers: [HttpService, GameService, GeneralService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

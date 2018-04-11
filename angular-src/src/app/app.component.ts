@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from 'viewmodel/game';
 import { GameService } from 'services/game.service';
 import { NodeResponse } from 'viewmodel/nodeResponse';
+import { GeneralService } from 'services/general.service';
 
 @Component({
     selector: 'app-root',
@@ -17,9 +18,20 @@ export class AppComponent implements OnInit  {
     public homeQuerryPoints: number;
     public awayQuerryPoints: number;
 
-    constructor(private gameService: GameService) {}
+    constructor(private gameService: GameService,
+                private generalService: GeneralService) {}
 
     ngOnInit() {
+
+        this.generalService.loadValuesForCountries().subscribe(
+            res => {
+                debugger;
+                //this is data for dropdown for locations
+            },
+            err => {
+                console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Cant find uniqye fields in DB...');
+            }
+        );
         this.points = new Array();
         for(let i = 0; i < 60; i++){
             this.points.push(i);
@@ -31,10 +43,11 @@ export class AppComponent implements OnInit  {
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
-        },
-        err => {
-            console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
-        });
+            },
+            err => {
+                console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+            }
+        );
     }
 
     public getSetPoints(position: number, setPoints: string[]): string{
