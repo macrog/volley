@@ -1,8 +1,8 @@
-const gamelist = require('../models/game');
+const gameSchema = require('../models/schema');
 
 module.exports = {
     mapGame: function(object) {
-        var game = new gamelist({
+        var game = new gameSchema({
             location: object.location,
             leaugue: object.leaugue,
             men: object.men,

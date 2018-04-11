@@ -2,17 +2,17 @@
 const express = require('express');
 const router = express.Router();
 
-var lineByLine = require('n-readlines');
+const lineByLine = require('n-readlines');
 const testFolder = 'data';
 const fs = require('fs');
-
-const gamelist = require('../models/game');
+const gameMdl = require('../models/game');
+const gameSchema = require('../models/schema');
 const tools = require('./helper');
 
 
 //GET HTTP method to /game
 router.get('/',(req, res) => {
-    gamelist.getAllLists((err, lists)=> {
+    gameMdl.getAllLists((err, lists)=> {
         if(err) {
             res.json({success: false, message: `Failed to load from DB. Error: ${err}`});
         }else {
@@ -26,7 +26,7 @@ router.post('/', (req,res,next) => {
     
     var game = tools.mapGame(req.body);
 
-    gamelist.addList(game, (err, list) => {
+    gameMdl.addList(game, (err, list) => {
         if(err) {
             res.json({success: false, message: `Failed to add item. Error: ${err}`});
         }else {
@@ -36,12 +36,12 @@ router.post('/', (req,res,next) => {
     });
 });
 
-//DELETE HTTP method to /gamelist. Here, we pass in a param which is the object id.
+//DELETE HTTP method to /gameMdl. Here, we pass in a param which is the object id.
 router.delete('/delete/:id', (req, res, next) => {
     //access the parameter which is the id of the item to be deleted
     let id = req.params.id; 
     //Call the model method deleteListById
-    gamelist.deleteById(id, (err, list) => {
+    gameMdl.deleteById(id, (err, list) => {
         if (err) {
             return res.json({success: false, msg: 'Cannot remove item'});
         }
@@ -57,11 +57,11 @@ router.delete('/delete/:id', (req, res, next) => {
     })
 });
 
-//DELETE HTTP method to /gamelist. Here, we pass in a param which is the object id.
+//DELETE HTTP method to /gameMdl. Here, we pass in a param which is the object id.
 router.delete('/delete', (req, res, next) => {
     
     //Call the model method deleteListById
-    gamelist.deleteAll((err, list) => {
+    gameMdl.deleteAll((err, list) => {
         if(err) {
             res.json({success: false, message: `Failed to delete all elements. Error: ${err}`});
         }
@@ -77,14 +77,14 @@ router.delete('/delete', (req, res, next) => {
 router.get('/read', (req, res, next)=> {
 
     var games = [];
-    let game = new gamelist();
+    let game = new gameSchema();
 
     let numberFiles = 0;
 
     fs.readdirSync(testFolder).forEach(file => {
 
         numberFiles++;
-        let game = new gamelist();
+        let game = new gameSchema();
 
         var liner = new lineByLine(testFolder + '/' + file);
         var line;
@@ -152,7 +152,7 @@ router.post('/upload', (req, res, next)=> {
         newList.push(game);
     });
     
-    gamelist.insertMultiple(newList, (err) => {
+    gameMdl.insertMultiple(newList, (err) => {
         if(err) {
             res.json({success: false, message: `Failed to add multiple items. Error: ${err}`});
         }
@@ -170,7 +170,7 @@ router.get('/find/:home/:away', (req, res, next)=> {
     
     let param = {"home": req.params.home, "away": req.params.away};
 
-    gamelist.findByScore(param, (err, lists) => {
+    gameMdl.findByScore(param, (err, lists) => {
         if(err) {
             res.json({success: false, message: `Failed to find items. Error: ${err}`});
         }
@@ -185,7 +185,7 @@ router.get('/sets/:id', (req, res, next) => {
     //access the parameter which is the id of the item to be deleted
     let id = req.params.id; 
     //Call the model method deleteListById
-    gamelist.getSets(id, (err, list) => {
+    gameMdl.getSets(id, (err, list) => {
         if(err) {
             res.json({success: false, message: `Failed to load from DB. Error: ${err}`});
         }else {
