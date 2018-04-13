@@ -15,8 +15,10 @@ export class AppComponent implements OnInit  {
     public games: Game[];
     public numberFilesRead: number;
     public points: number[];
-    public homeQuerryPoints: number;
-    public awayQuerryPoints: number;
+    public homeQueryPoints: number;
+    public awayQueryPoints: number;
+    public queryLocation: string;
+    public locations: string[];
 
     constructor(private gameService: GameService,
                 private generalService: GeneralService) {}
@@ -25,15 +27,14 @@ export class AppComponent implements OnInit  {
 
         this.generalService.loadValuesForCountries().subscribe(
             res => {
-                debugger;
-                //this is data for dropdown for locations
+                this.locations = res;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Cant find uniqye fields in DB...');
             }
         );
         this.points = new Array();
-        for(let i = 0; i < 60; i++){
+        for (let i = 0; i < 60; i++) {
             this.points.push(i);
         }
     }
@@ -50,28 +51,29 @@ export class AppComponent implements OnInit  {
         );
     }
 
-    public getSetPoints(position: number, setPoints: string[]): string{
+    public getSetPoints(position: number, setPoints: string[]): string {
         const lastPoints = setPoints[setPoints.length - 1].split(' : ');
         return lastPoints[position];
     }
 
-    public getPoint(currentPoints: string, prevPoints: string, position: number): string{
-        if(prevPoints){
-            let currentPointsSplit = currentPoints.split(' : ');
-            let prevPointsSplit = prevPoints.split(' : ');
+    public getPoint(currentPoints: string, prevPoints: string, position: number): string {
+        if (prevPoints) {
+            const currentPointsSplit = currentPoints.split(' : ');
+            const prevPointsSplit = prevPoints.split(' : ');
 
-            return position === 0 ? currentPointsSplit[0] > prevPointsSplit[0] ? 'red' : '' : currentPointsSplit[1] > prevPointsSplit[1] ? 'red' : '';
+            return position === 0 ? currentPointsSplit[0] > prevPointsSplit[0] ?
+            'red' : '' : currentPointsSplit[1] > prevPointsSplit[1] ? 'red' : '';
 
-        }else{
+        }else {
             return currentPoints.split(' : ')[0] > currentPoints.split(' : ')[1] ? 'red' : '';
         }
     }
 
-    public uploadGamesToDB(){
+    public uploadGamesToDB() {
         this.gameService.uploadGamesToDB(this.games).subscribe(
             (res: NodeResponse) => {
-                if(res.success) console.log(res.message);
-                if(!res.success) console.error(res.message);
+                if (res.success) { console.log(res.message); }
+                if (!res.success) { console.error(res.message); }
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
@@ -79,21 +81,18 @@ export class AppComponent implements OnInit  {
         );
     }
 
-    public deleteGame(){
+    public deleteGame() {
         this.gameService.deleteGamesFromDB('this.games').subscribe(
-            
             (res: NodeResponse) => {
-                debugger;
-                if(res.success) console.log(res.message);
+                if (res.success) { console.log(res.message); }
             },
             err => {
-                debugger;
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
             }
         );
     }
 
-    public deleteAllGame(){
+    public deleteAllGame() {
         this.gameService.deleteAllGamesFromDB().subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
@@ -116,15 +115,15 @@ export class AppComponent implements OnInit  {
         );
     }
 
-    public searchDBForScore(){
-        debugger;
-        this.gameService.findGames(this.homeQuerryPoints, this.awayQuerryPoints).subscribe(
+    public searchDBForScore() {
+        this.gameService.findGames(this.homeQueryPoints, this.awayQueryPoints).subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
             },
             err => {
-                console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Getting games from DB with conditions score search...');
+                console.warn(err.url + ' - ' + err.status + ' ' + err.statusText +
+                '. Getting games from DB with conditions score search...');
             }
         );
     }

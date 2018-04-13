@@ -62,7 +62,7 @@ export class GameService {
         return result;
     }
 
-    public findGames(home: number, away: number):Observable<ReadGameRes> {
+    public findGames(home: number, away: number): Observable<ReadGameRes> {
         let result: Observable<ReadGameRes>;
 
         result = this.httpService.getHttp(`${this.baseURL}game/find/${home}/${away}`);

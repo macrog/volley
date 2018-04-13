@@ -18,18 +18,24 @@
         <div class="row m-t-10">
             <div class="col-2">
                 Home 
-                <select class="w-50px" [(ngModel)]="homeQuerryPoints">
+                <select class="w-50px" [(ngModel)]="homeQueryPoints">
                     <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
                 </select>
             </div>
             <div class="col-2">
                 Away 
-                <select class="w-50px" [(ngModel)]="awayQuerryPoints">
+                <select class="w-50px" [(ngModel)]="awayQueryPoints">
                     <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
                 </select>
             </div>
             <div class="col-2">
-                <button type="button" [disabled]="!homeQuerryPoints || !awayQuerryPoints" class="btn btn-primary btn-sm" (click)="searchDBForScore();">search DB</button>
+                Location 
+                <select class="w-50px" [(ngModel)]="queryLocation">
+                    <option *ngFor="let location of locations" [ngValue]="location"> {{ location }} </option>
+                </select>
+            </div>
+            <div class="col-2">
+                <button type="button" [disabled]="!homeQueryPoints || !awayQueryPoints" class="btn btn-primary btn-sm" (click)="searchDBForScore();">search DB</button>
             </div>
         </div>
 

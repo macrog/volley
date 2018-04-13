@@ -13,8 +13,8 @@ export class GeneralService {
 
     constructor(private httpService: HttpService) {}
 
-    public loadValuesForCountries():Observable<String> {
-        let result: Observable<String>;
+    public loadValuesForCountries(): Observable<string[]> {
+        let result: Observable<string[]>;
 
         result = this.httpService.getHttp(`${this.baseURL}general/country`);
 
