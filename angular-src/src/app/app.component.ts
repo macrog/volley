@@ -33,6 +33,7 @@ export class AppComponent implements OnInit  {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Cant find uniqye fields in DB...');
             }
         );
+
         this.points = new Array();
         for (let i = 0; i < 60; i++) {
             this.points.push(i);
@@ -116,7 +117,7 @@ export class AppComponent implements OnInit  {
     }
 
     public searchDBForScore() {
-        this.gameService.findGames(this.homeQueryPoints, this.awayQueryPoints).subscribe(
+        this.gameService.findGames(this.homeQueryPoints, this.awayQueryPoints, this.queryLocation).subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;

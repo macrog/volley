@@ -165,12 +165,13 @@ router.post('/upload', (req, res, next)=> {
 });
 
 //find games 
-router.get('/find/:home/:away', (req, res, next)=> {
+// router.get('/find/:home/:away', (req, res, next)=> {
+router.get('/find/:data', (req, res, next)=> {
     //access the parameter which is the id of the item to be deleted
     
-    let param = {"home": req.params.home, "away": req.params.away};
+    let params = JSON.parse(req.params.data);
 
-    gameMdl.findByScore(param, (err, lists) => {
+    gameMdl.findByScore(params, (err, lists) => {
         if(err) {
             res.json({success: false, message: `Failed to find items. Error: ${err}`});
         }

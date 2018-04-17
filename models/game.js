@@ -24,9 +24,12 @@ module.exports.deleteAll = (callback) => {
 }
 
 //find({}) delete all objects
-module.exports.findByScore = (param, callback) => {
-    var string =  param.home + ':' + param.away;
-    GameList.find({ 'pointByPoint': { '$all': [ string ] } }, callback);
+module.exports.findByScore = (params, callback) => {
+    var string =  params.home + ':' + params.away;
+    
+    // GameList.find( {'pointByPoint': { '$all': [ string ] } }, callback);
+    // GameList.find({ $and: [{'location': 'Asia'}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
+    GameList.find({ $and: [{'location': params.location ? params.location : '$all'}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
 }
 
 //find({}) delete all objects

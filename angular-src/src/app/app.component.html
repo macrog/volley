@@ -28,9 +28,9 @@
                     <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 Location 
-                <select class="w-50px" [(ngModel)]="queryLocation">
+                <select [(ngModel)]="queryLocation">
                     <option *ngFor="let location of locations" [ngValue]="location"> {{ location }} </option>
                 </select>
             </div>
