@@ -9,6 +9,8 @@ router.get('/country',(req, res) => {
         if(err) {
             res.json({success: false, message: `Failed to load from DB. Error: ${err}`});
         }else {
+            lists = lists.sort();
+            lists.unshift('');
             res.json(lists.sort());
         }   
     });
