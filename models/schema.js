@@ -10,7 +10,7 @@ const GamelistSchema = mongoose.Schema({
         required: true
     },
     leaugue: String,
-    men: Boolean,
+    man: Boolean,
     team1Name: {
         type: String,
         required: true

@@ -96,7 +96,7 @@ router.get('/read', (req, res, next)=> {
             if(lineNumber === 1){                
                 game.location = removeFirstAndLast(lineSplit[1]);
                 game.leaugue = removeFirstAndLast(lineSplit[2]);
-                game.men = game.leaugue.toLowerCase().indexOf('women') !== -1 ? false : true;
+                game.man = game.leaugue.toLowerCase().indexOf('women') !== -1 ? false : true;
                 game.team1Name = removeFirstAndLast(lineSplit[4]);
                 game.team2Name = removeFirstAndLast(lineSplit[5]);
             }else if(lineNumber === 3){

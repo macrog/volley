@@ -1,4 +1,4 @@
-export class Game{
+export class Game {
     public location: string;
     public leaugue: string;
     public team1Name: string;
@@ -17,6 +17,7 @@ export class Game{
     public team2ServiceErrors: number;
     public pointByPoint: string[];
     public setsFinal: string[];
+    public man: boolean;
 
     //db variable
     public _id?: string;

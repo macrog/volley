@@ -1,7 +1,7 @@
 
 <div class="container p-l-r-0" id="main-container-wrapper">
     <div id="main-container">
-        <div class="m-t-10">
+        <div class="m-t-10"> <!-- top btns + number of games -->
             <button type="button" class="btn btn-secondary btn-sm" (click)="readLocalDataFolder();">READ Local</button>
             <button type="button" class="btn btn-primary btn-sm" (click)="uploadGamesToDB();">UPLOAD</button>
             <button type="button" class="btn btn-secondary btn-sm" (click)="readDBGames();">READ DB</button>
@@ -15,7 +15,7 @@
             
         </div>
         
-        <div class="row m-t-10">
+        <div class="row m-t-10"> <!-- home, away and location -->
             <div class="col-2">
                 Home 
                 <select class="w-50px" [(ngModel)]="homeQueryPoints">
@@ -41,10 +41,20 @@
 
         <div class="container p-l-r-0 m-t-10 overflow" id="games-container" *ngIf="games">
             <div class="m-t-5" *ngFor="let game of games; let ind = index;">
-                <div id="game-container" [ngClass]="{'odd' : ind % 2 === 0, 'even' : ind % 2 !== 0, 'women' : !game.men}">
+                <div id="game-container" [ngClass]="{'odd' : ind % 2 === 0, 'even' : ind % 2 !== 0}">
                     <div class="row m-l-r-0" style="height: 49px;">
                         <div id="country" class="col-1 p-l-r-0 text-overflow" data-toggle="tooltip" data-placement="top" title="{{ game.location }}"> {{ game.location }} </div>
-                        <div id="leaugue" class="col-3 p-l-r-0 text-overflow" data-toggle="tooltip" data-placement="top" title="{{ game.leaugue }}"> {{ game.leaugue }} </div>
+                        <div class="col-3 p-l-r-0" style="display: flex;"> 
+                            <div id="leaugue" class="col-10 p-l-r-0 text-overflow" data-toggle="tooltip" data-placement="top" title="{{ game.leaugue }}">{{ game.leaugue }}</div> 
+                            <div id="leaugue" class="col-2 p-l-r-0">
+                                <div *ngIf="game.man">
+                                    <i class="fa fa-male" aria-hidden="true"></i>
+                                </div>
+                                <div *ngIf="!game.man">
+                                    <i class="fa fa-female female" aria-hidden="true"></i>
+                                </div>
+                            </div> 
+                        </div>
                         <div class="col-8 p-l-r-0">
                             <div id="team-container" class="col-12 p-l-r-0">
                                 <div class="row m-l-r-0 bottom-border">
@@ -131,6 +141,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>    
 </div>
