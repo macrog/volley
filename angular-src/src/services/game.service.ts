@@ -68,8 +68,7 @@ export class GameService {
         params.home = home;
         params.away = away;
         params.location = location;
-debugger;
-        // result = this.httpService.getHttp(`${this.baseURL}game/find/${home}/${away}`);
+
         result = this.httpService.getHttp(`${this.baseURL}game/find/` + JSON.stringify(params));
 
         return result;

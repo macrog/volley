@@ -103,3 +103,6 @@
 .female{
     color: #f7607a;
 }
+.flex{
+    display: inline-flex;
+}

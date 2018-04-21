@@ -16,23 +16,35 @@
         </div>
         
         <div class="row m-t-10"> <!-- home, away and location -->
-            <div class="col-2">
-                Home 
-                <select class="w-50px" [(ngModel)]="homeQueryPoints">
-                    <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
-                </select>
+            <div class="col-2 flex" >
+                <div class="col-6 p-l-r-0">
+                    Home
+                </div> 
+                <div class="col-6 p-l-r-0">
+                    <select class="w-50px" [(ngModel)]="homeQueryPoints">
+                        <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
+                    </select>
+                </div>
             </div>
-            <div class="col-2">
-                Away 
-                <select class="w-50px" [(ngModel)]="awayQueryPoints">
-                    <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
-                </select>
+            <div class="col-2 flex">
+                <div class="col-6 p-l-r-0">
+                    Away
+                </div>
+                <div class="col-6 p-l-r-0">
+                    <select class="w-50px" [(ngModel)]="awayQueryPoints">
+                        <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
+                    </select>
+                </div>
             </div>
-            <div class="col-4">
-                Location 
-                <select [(ngModel)]="queryLocation">
-                    <option *ngFor="let location of locations" [ngValue]="location"> {{ location }} </option>
-                </select>
+            <div class="col-2 flex">
+                <div class="col-6 p-l-r-0">
+                    Location
+                </div> 
+                <div class="col-6 p-l-r-0">
+                    <select [(ngModel)]="queryLocation">
+                        <option *ngFor="let location of locations" [ngValue]="location"> {{ location }} </option>
+                    </select>
+                </div> 
             </div>
             <div class="col-2">
                 <button type="button" [disabled]="!homeQueryPoints || !awayQueryPoints" class="btn btn-primary btn-sm" (click)="searchDBForScore();">search DB</button>
@@ -44,7 +56,7 @@
                 <div id="game-container" [ngClass]="{'odd' : ind % 2 === 0, 'even' : ind % 2 !== 0}">
                     <div class="row m-l-r-0" style="height: 49px;">
                         <div id="country" class="col-1 p-l-r-0 text-overflow" data-toggle="tooltip" data-placement="top" title="{{ game.location }}"> {{ game.location }} </div>
-                        <div class="col-3 p-l-r-0" style="display: flex;"> 
+                        <div class="col-3 p-l-r-0 flex"> 
                             <div id="leaugue" class="col-10 p-l-r-0 text-overflow" data-toggle="tooltip" data-placement="top" title="{{ game.leaugue }}">{{ game.leaugue }}</div> 
                             <div id="leaugue" class="col-2 p-l-r-0">
                                 <div *ngIf="game.man">
@@ -61,7 +73,7 @@
                                     <div class="col-4 p-l-r-0 text-overflow right-border" [ngClass]="game.team1Set > game.team2Set ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="{{ game.team1Name }}"> {{ game.team1Name }} </div>
                                     <div class="col-8 p-l-r-0">
                                         <div class="row m-l-r-0 text-center">
-                                            <div class="col-7 p-l-r-0 right-border" style="display: inline-flex;"> 
+                                            <div class="col-7 p-l-r-0 right-border flex"> 
                                                 <div [ngClass]="{'font-weight-bold' : game.team1Set > game.team2Set}" class="col-2 right-border" data-toggle="tooltip" data-placement="top" title="Sets" (click)="getSetsByGameId(game._id)">
                                                     {{ game.team1Set }}
                                                 </div>
@@ -101,7 +113,7 @@
                                     <div class="col-4 p-l-r-0 text-overflow right-border" [ngClass]="game.team2Set > game.team1Set ? 'font-weight-bold' : ''" data-toggle="tooltip" data-placement="top" title="{{ game.team2Name }}"> {{ game.team2Name }} </div>
                                     <div class="col-8 p-l-r-0">
                                         <div class="row m-l-r-0 text-center">
-                                            <div class="col-7 p-l-r-0 right-border" style="display: inline-flex;">
+                                            <div class="col-7 p-l-r-0 right-border flex">
                                                 <div [ngClass]="{'font-weight-bold' : game.team2Set > game.team1Set}" class="col-2 right-border" data-toggle="tooltip" data-placement="top" title="Sets" (click)="getSetsByGameId(game._id)">
                                                     {{ game.team2Set }}
                                                 </div>

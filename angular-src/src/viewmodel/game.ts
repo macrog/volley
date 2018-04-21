@@ -19,6 +19,6 @@ export class Game {
     public setsFinal: string[];
     public man: boolean;
 
-    //db variable
+    // db variable
     public _id?: string;
 }
