@@ -19,6 +19,13 @@ export class AppComponent implements OnInit  {
     public awayQueryPoints: number;
     public queryLocation: string;
     public locations: string[];
+    public technichalBreak: string;
+    public breaks: string[];
+    public gender: string;
+    public genders: string[];
+    public level: string;
+    public levels: string[];
+
 
     constructor(private gameService: GameService,
                 private generalService: GeneralService) {}
@@ -34,10 +41,7 @@ export class AppComponent implements OnInit  {
             }
         );
 
-        this.points = new Array();
-        for (let i = 0; i < 60; i++) {
-            this.points.push(i);
-        }
+        this.initialize();
     }
 
     public readLocalDataFolder() {
@@ -143,5 +147,28 @@ export class AppComponent implements OnInit  {
     public clearScreen(): void {
         this.games = null;
         this.numberFilesRead = null;
+    }
+
+    // --------------------------------PRIVATE HELPERS--------------------------------------------- //
+    private initialize(): void {
+        this.breaks = new Array();
+        this.breaks.push('');
+        this.breaks.push('1st break');
+        this.breaks.push('2nd break');
+
+        this.genders = new Array();
+        this.genders.push('');
+        this.genders.push('nam');
+        this.genders.push('woman');
+
+        this.levels = new Array();
+        this.levels.push('');
+        this.levels.push('junior');
+        this.levels.push('senior');
+
+        this.points = new Array();
+        for (let i = 0; i < 60; i++) {
+            this.points.push(i);
+        }
     }
 }

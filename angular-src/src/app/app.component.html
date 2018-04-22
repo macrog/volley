@@ -11,11 +11,15 @@
             
             <div class="m-l-10 d-i-b"  *ngIf="games">
                 {{numberFilesRead}} {{numberFilesRead === 1 ? 'game' : 'games'}}
-            </div> 
+            </div>
+            
+            
+            <button type="button" [disabled]="!homeQueryPoints || !awayQueryPoints" class="btn btn-primary btn-sm float-right" (click)="searchDBForScore();">search DB</button>
+            
             
         </div>
         
-        <div class="row m-t-10"> <!-- home, away and location -->
+        <div class="row m-t-10"> <!-- home, away, location, gender, technical, level -->
             <div class="col-2 flex" >
                 <div class="col-6 p-l-r-0">
                     Home
@@ -46,8 +50,35 @@
                     </select>
                 </div> 
             </div>
-            <div class="col-2">
-                <button type="button" [disabled]="!homeQueryPoints || !awayQueryPoints" class="btn btn-primary btn-sm" (click)="searchDBForScore();">search DB</button>
+            <div class="col-2 flex" >
+                <div class="col-6 p-l-r-0">
+                    Technical
+                </div> 
+                <div class="col-6 p-l-r-0">
+                    <select [(ngModel)]="technichalBreak">
+                        <option *ngFor="let break of breaks" [ngValue]="break"> {{ break }} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2 flex" >
+                <div class="col-6 p-l-r-0">
+                    Gender
+                </div> 
+                <div class="col-6 p-l-r-0">
+                    <select [(ngModel)]="gender">
+                        <option *ngFor="let g of genders" [ngValue]="g"> {{ g }} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2 flex" >
+                <div class="col-6 p-l-r-0">
+                    Level
+                </div> 
+                <div class="col-6 p-l-r-0">
+                    <select [(ngModel)]="level">
+                        <option *ngFor="let l of levels" [ngValue]="l"> {{ l }} </option>
+                    </select>
+                </div>
             </div>
         </div>
 
