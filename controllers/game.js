@@ -96,7 +96,7 @@ router.get('/read', (req, res, next)=> {
             if(lineNumber === 1){                
                 game.location = removeFirstAndLast(lineSplit[1]);
                 game.leaugue = removeFirstAndLast(lineSplit[2]);
-                game.man = game.leaugue.toLowerCase().indexOf('women') !== -1 ? false : true;
+                game.isMale = game.leaugue.toLowerCase().indexOf('women') !== -1 ? false : true;
                 game.team1Name = removeFirstAndLast(lineSplit[4]);
                 game.team2Name = removeFirstAndLast(lineSplit[5]);
             }else if(lineNumber === 3){
@@ -165,13 +165,12 @@ router.post('/upload', (req, res, next)=> {
 });
 
 //find games 
-// router.get('/find/:home/:away', (req, res, next)=> {
 router.get('/find/:data', (req, res, next)=> {
     //access the parameter which is the id of the item to be deleted
     
     let params = JSON.parse(req.params.data);
 
-    gameMdl.findByScore(params, (err, lists) => {
+    gameMdl.findGamesWhere(params, (err, lists) => {
         if(err) {
             res.json({success: false, message: `Failed to find items. Error: ${err}`});
         }

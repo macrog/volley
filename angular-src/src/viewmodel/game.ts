@@ -17,7 +17,7 @@ export class Game {
     public team2ServiceErrors: number;
     public pointByPoint: string[];
     public setsFinal: string[];
-    public man: boolean;
+    public isMale: boolean;
 
     // db variable
     public _id?: string;

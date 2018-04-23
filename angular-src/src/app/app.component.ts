@@ -120,8 +120,11 @@ export class AppComponent implements OnInit  {
         );
     }
 
-    public searchDBForScore() {
-        this.gameService.findGames(this.homeQueryPoints, this.awayQueryPoints, this.queryLocation).subscribe(
+    public searchDB() {
+        this.gameService.findGames(
+                this.homeQueryPoints, this.awayQueryPoints, this.queryLocation,
+                this.gender
+            ).subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
@@ -158,7 +161,7 @@ export class AppComponent implements OnInit  {
 
         this.genders = new Array();
         this.genders.push('');
-        this.genders.push('nam');
+        this.genders.push('man');
         this.genders.push('woman');
 
         this.levels = new Array();

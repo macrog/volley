@@ -5,7 +5,7 @@ module.exports = {
         var game = new gameSchema({
             location: object.location,
             leaugue: object.leaugue,
-            man: object.man,
+            isMale: object.isMale,
             team1Name:  object.team1Name,
             team2Name:  object.team2Name,
             team1Set:  object.team1Set,
