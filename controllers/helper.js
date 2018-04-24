@@ -6,6 +6,7 @@ module.exports = {
             location: object.location,
             leaugue: object.leaugue,
             isMale: object.isMale,
+            isSenior: object.isSenior,
             team1Name:  object.team1Name,
             team2Name:  object.team2Name,
             team1Set:  object.team1Set,

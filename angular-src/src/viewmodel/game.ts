@@ -18,6 +18,7 @@ export class Game {
     public pointByPoint: string[];
     public setsFinal: string[];
     public isMale: boolean;
+    public isSenior: boolean;
 
     // db variable
     public _id?: string;
