@@ -90,15 +90,18 @@ router.get('/read', (req, res, next)=> {
         var line;
         var lineNumber = 0;
         var points = [];
+        var regexSenior = RegExp('U[0-9]{2}|student');
+        var regexMale = RegExp('women');
         while (line = liner.next()) { 
             var lineSplit = line.toString().split(',');  
 
             if(lineNumber === 1){                
                 game.location = removeFirstAndLast(lineSplit[1]);
                 game.leaugue = removeFirstAndLast(lineSplit[2]);
-                game.isMale = game.leaugue.toLowerCase().indexOf('women') !== -1 ? false : true;
+                game.isMale = regexMale.test(game.leaugue) ? false : true;
                 game.team1Name = removeFirstAndLast(lineSplit[4]);
                 game.team2Name = removeFirstAndLast(lineSplit[5]);
+                game.isSenior = regexSenior.test(game.team1Name) ? false : true;
             }else if(lineNumber === 3){
                 game.team1Set = removeFirstAndLast(lineSplit[1]);
                 game.team2Set = removeFirstAndLast(lineSplit[3]);

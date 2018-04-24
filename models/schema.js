@@ -11,6 +11,7 @@ const GamelistSchema = mongoose.Schema({
     },
     leaugue: String,
     isMale: Boolean,
+    isSenior: Boolean,
     team1Name: {
         type: String,
         required: true
