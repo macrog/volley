@@ -3,6 +3,7 @@ import { Game } from 'viewmodel/game';
 import { GameService } from 'services/game.service';
 import { NodeResponse } from 'viewmodel/nodeResponse';
 import { GeneralService } from 'services/general.service';
+import { NameValuePair } from 'viewmodel/name-value-pair';
 
 @Component({
     selector: 'app-root',
@@ -17,14 +18,14 @@ export class AppComponent implements OnInit  {
     public points: number[];
     public homeQueryPoints: number;
     public awayQueryPoints: number;
-    public queryLocation: string;
-    public locations: string[];
-    public technichalBreak: string;
-    public breaks: string[];
-    public gender: string;
-    public genders: string[];
-    public level: string;
-    public levels: string[];
+    public queryLocation: NameValuePair;
+    public locations: NameValuePair[];
+    public technichalBreak: NameValuePair;
+    public breaks: NameValuePair[];
+    public gender: NameValuePair;
+    public genders: NameValuePair[];
+    public level: NameValuePair;
+    public levels: NameValuePair[];
 
 
     constructor(private gameService: GameService,
@@ -34,7 +35,11 @@ export class AppComponent implements OnInit  {
 
         this.generalService.loadValuesForCountries().subscribe(
             res => {
-                this.locations = res;
+                this.locations = new Array();
+                res.forEach(element => {
+                    this.locations.push({name: element, value: element !== '' ? element : null});
+                });
+                this.queryLocation = {name: '', value: null};
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Cant find uniqye fields in DB...');
@@ -122,8 +127,8 @@ export class AppComponent implements OnInit  {
 
     public searchDB() {
         this.gameService.findGames(
-                this.homeQueryPoints, this.awayQueryPoints, this.queryLocation,
-                this.gender
+                this.homeQueryPoints, this.awayQueryPoints, this.queryLocation.value,
+                this.gender.value
             ).subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
@@ -152,22 +157,25 @@ export class AppComponent implements OnInit  {
         this.numberFilesRead = null;
     }
 
-    // --------------------------------PRIVATE HELPERS--------------------------------------------- //
+    // --------------------------------PRIVATE MEMBERS--------------------------------------------- //
     private initialize(): void {
         this.breaks = new Array();
-        this.breaks.push('');
-        this.breaks.push('1st break');
-        this.breaks.push('2nd break');
+        this.breaks.push({name: '', value: null});
+        this.breaks.push({name: '1st break', value: '1st'});
+        this.breaks.push({name: '2nd break', value: '2nd'});
+        this.technichalBreak = {name: '', value: null};
 
         this.genders = new Array();
-        this.genders.push('');
-        this.genders.push('man');
-        this.genders.push('woman');
+        this.genders.push({name: '', value: null});
+        this.genders.push({name: 'man', value: 'M'});
+        this.genders.push({name: 'woman', value: 'W'});
+        this.gender = {name: '', value: null};
 
         this.levels = new Array();
-        this.levels.push('');
-        this.levels.push('junior');
-        this.levels.push('senior');
+        this.levels.push({name: '', value: null});
+        this.levels.push({name: 'junior', value: 'J'});
+        this.levels.push({name: 'senior', value: 'S'});
+        this.level = {name: '', value: null};
 
         this.points = new Array();
         for (let i = 0; i < 60; i++) {

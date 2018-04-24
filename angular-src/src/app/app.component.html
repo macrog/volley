@@ -46,7 +46,7 @@
                 </div> 
                 <div class="col-6 p-l-r-0">
                     <select [(ngModel)]="queryLocation">
-                        <option *ngFor="let location of locations" [ngValue]="location"> {{ location }} </option>
+                        <option *ngFor="let location of locations" [ngValue]="location"> {{ location.name }} </option>
                     </select>
                 </div> 
             </div>
@@ -56,7 +56,7 @@
                 </div> 
                 <div class="col-6 p-l-r-0">
                     <select [(ngModel)]="technichalBreak">
-                        <option *ngFor="let break of breaks" [ngValue]="break"> {{ break }} </option>
+                        <option *ngFor="let break of breaks" [ngValue]="break"> {{ break.name }} </option>
                     </select>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 </div> 
                 <div class="col-6 p-l-r-0">
                     <select [(ngModel)]="gender">
-                        <option *ngFor="let g of genders" [ngValue]="g"> {{ g }} </option>
+                        <option *ngFor="let g of genders" [ngValue]="g"> {{ g.name }} </option>
                     </select>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                 </div> 
                 <div class="col-6 p-l-r-0">
                     <select [(ngModel)]="level">
-                        <option *ngFor="let l of levels" [ngValue]="l"> {{ l }} </option>
+                        <option *ngFor="let l of levels" [ngValue]="l"> {{ l.name }} </option>
                     </select>
                 </div>
             </div>

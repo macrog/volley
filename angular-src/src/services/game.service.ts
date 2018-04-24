@@ -63,7 +63,7 @@ export class GameService {
     }
 
     public findGames(
-            home: number = null, away: number = null, location: string = null, 
+            home: number = null, away: number = null, location: string = null,
             gender: string = null
         ): Observable<ReadGameRes> {
         let result: Observable<ReadGameRes>;
