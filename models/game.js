@@ -37,7 +37,7 @@ module.exports.findGamesWhere = (params, callback) => {
         GameList.find({ $and: [{'location': params.location}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
     }else if(params.gender ) {
         // gender & points
-        GameList.find({ $and: [{'isMale': params.gender === 'man' ? true :  false}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
+        GameList.find({ $and: [{'isMale': params.gender === 'M' ? true :  false}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
     }else {
         // only points
         GameList.find( {'pointByPoint': { '$all': [ string ] } }, callback);
