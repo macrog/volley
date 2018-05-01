@@ -64,7 +64,7 @@ export class GameService {
 
     public findGames(
             home: number = null, away: number = null, location: string = null,
-            gender: string = null
+            gender: string = null, level: string = null
         ): Observable<ReadGameRes> {
         let result: Observable<ReadGameRes>;
         const params: any = {};
@@ -73,6 +73,7 @@ export class GameService {
         params.away = away;
         params.location = location;
         params.gender = gender;
+        params.level = level;
 
         result = this.httpService.getHttp(`${this.baseURL}game/find/` + JSON.stringify(params));
 

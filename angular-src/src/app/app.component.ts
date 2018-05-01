@@ -128,7 +128,7 @@ export class AppComponent implements OnInit  {
     public searchDB() {
         this.gameService.findGames(
                 this.homeQueryPoints, this.awayQueryPoints, this.queryLocation.value,
-                this.gender.value
+                this.gender.value, this.level.value
             ).subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];

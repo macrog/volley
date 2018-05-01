@@ -169,8 +169,6 @@ router.post('/upload', (req, res, next)=> {
 
 //find games 
 router.get('/find/:data', (req, res, next)=> {
-    //access the parameter which is the id of the item to be deleted
-    
     let params = JSON.parse(req.params.data);
 
     gameMdl.findGamesWhere(params, (err, lists) => {
