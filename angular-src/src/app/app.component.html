@@ -14,7 +14,7 @@
             </div>
             
             
-            <button type="button" [disabled]="!homeQueryPoints || !awayQueryPoints" class="btn btn-primary btn-sm float-right" (click)="searchDB();">search DB</button>
+            <button type="button" class="btn btn-primary btn-sm float-right" (click)="searchDB();">search DB</button>
             
             
         </div>
@@ -49,17 +49,7 @@
                         <option *ngFor="let location of locations" [ngValue]="location"> {{ location.name }} </option>
                     </select>
                 </div> 
-            </div>
-            <div class="col-2 flex" >
-                <div class="col-6 p-l-r-0">
-                    Technical
-                </div> 
-                <div class="col-6 p-l-r-0">
-                    <select [(ngModel)]="technichalBreak">
-                        <option *ngFor="let break of breaks" [ngValue]="break"> {{ break.name }} </option>
-                    </select>
-                </div>
-            </div>
+            </div>            
             <div class="col-2 flex" >
                 <div class="col-6 p-l-r-0">
                     Gender
@@ -77,6 +67,16 @@
                 <div class="col-6 p-l-r-0">
                     <select [(ngModel)]="level">
                         <option *ngFor="let l of levels" [ngValue]="l"> {{ l.name }} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2 flex" >
+                <div class="col-6 p-l-r-0">
+                    Technical
+                </div> 
+                <div class="col-6 p-l-r-0">
+                    <select [(ngModel)]="technichalBreak">
+                        <option *ngFor="let break of breaks" [ngValue]="break"> {{ break.name }} </option>
                     </select>
                 </div>
             </div>

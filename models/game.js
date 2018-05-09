@@ -1,4 +1,5 @@
 const GameList = require('./schema');
+const tools = require('./helper');
 
 //find() returns all the lists
 module.exports.getAllLists = (callback) => {
@@ -29,33 +30,7 @@ module.exports.getSets = (id, callback) => {
 }
 
 //find({}) delete all objects
-module.exports.findGamesWhere = (params, callback) => {
-    if(params.home && params.away){
-        var string =  params.home + ':' + params.away;
-    }
-    if(params.level && params.location && params.gender) {
-        //level & location & gender & points
-        GameList.find({ $and: [{'isSenior': params.level === 'S' ? true :  false}, {'location': params.location}, {'isMale': params.gender === 'M' ? true :  false}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
-    }else if(params.level && params.location) {
-        //level & location & points
-        GameList.find({ $and: [{'isSenior': params.level === 'S' ? true :  false}, {'location': params.location}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
-    }else if(params.level && params.gender) {
-        //level & gender & points
-        GameList.find({ $and: [{'isSenior': params.level === 'S' ? true :  false}, {'isMale': params.gender === 'M' ? true :  false}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
-    }else if(params.location && params.gender) {
-        //location & gender & points
-        GameList.find({ $and: [{'location': params.location}, {'isMale': params.gender === 'M' ? true :  false}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
-    }else if(params.location ) {
-        // location & points
-        GameList.find({ $and: [{'location': params.location}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
-    }else if(params.gender ) {
-        // gender & points
-        GameList.find({ $and: [{'isMale': params.gender === 'M' ? true :  false}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
-    }else if(params.level ) {
-        // level & points
-        GameList.find({ $and: [{'isSenior': params.level === 'S' ? true :  false}, {'pointByPoint': { '$all': [ string ] }}]}, callback);
-    }else {
-        // only points
-        GameList.find( {'pointByPoint': { '$all': [ string ] } }, callback);
-    }    
+module.exports.findGamesWhere = (params, callback) => {    
+    GameList.find( tools.creteQueryObject(params), callback);    
 }
+

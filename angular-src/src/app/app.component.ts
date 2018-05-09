@@ -181,5 +181,6 @@ export class AppComponent implements OnInit  {
         for (let i = 0; i < 60; i++) {
             this.points.push(i);
         }
+        this.points.unshift(null);
     }
 }
