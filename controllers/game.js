@@ -131,14 +131,10 @@ router.get('/read', (req, res, next)=> {
 
             lineNumber++;
         }
+        
+        game.sets = tools.getSetsPoitns(points, false);
+        game.setsFinal = tools.getSetsFinalPoints(game.sets);
 
-        var sets = [];
-
-        var setsFinal = tools.getSetsPoitns(points, true);
-
-        game.setsFinal = setsFinal;
-
-        game.pointByPoint = points;
         games.push(game);
     });
 
@@ -192,7 +188,7 @@ router.get('/sets/:id', (req, res, next) => {
         }else {
             var arrayIndex = [];
             var sets = [];
-            var points = list[0].pointByPoint.slice(0);
+            var points = list[0].stes.slice(0);
             list[0].sets.forEach((element, index) => {            
                 if(element === "1 : 0" || element === "0 : 1"){
                     arrayIndex.push(index);                

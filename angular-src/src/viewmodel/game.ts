@@ -15,7 +15,7 @@ export class Game {
     public team2Blocks: number;
     public team1ServiceErrors: number;
     public team2ServiceErrors: number;
-    public pointByPoint: string[];
+    public sets: string[][];
     public setsFinal: string[];
     public isMale: boolean;
     public isSenior: boolean;

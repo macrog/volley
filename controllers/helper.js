@@ -21,7 +21,7 @@ module.exports = {
             team2Blocks:  object.team2Blocks,
             team1ServiceErrors:  object.team1ServiceErrors,
             team2ServiceErrors:  object.team2ServiceErrors,
-            pointByPoint:  object.pointByPoint,
+            sets:  object.sets,
             setsFinal: object.setsFinal
         });
 
@@ -59,6 +59,15 @@ module.exports = {
         });
         
         return sets;
+    },
+    getSetsFinalPoints: function(multiArray) {
+        var setsFinal = [];
+        if(multiArray.length > 0) {
+            for(var i = 0; i < multiArray.length; i++){
+                setsFinal.push(multiArray[i][multiArray[i].length - 1]);
+            }
+        }
+        return setsFinal;
     },
     multiply: function(a,b) {
         return a*b

@@ -26,7 +26,7 @@ module.exports.deleteAll = (callback) => {
 
 //find({}) delete all objects
 module.exports.getSets = (id, callback) => {
-    GameList.find({"_id" : id}, {pointByPoint: 1}, callback);
+    GameList.find({"_id" : id}, {sets: 1}, callback);
 }
 
 //find({}) delete all objects

@@ -14,7 +14,7 @@ module.exports = {
         }
         if(params.home !== null && params.away !== null) {
             var searchResult =  params.home + ':' + params.away;
-            query.$and.push({'pointByPoint': { '$all': [ searchResult ] } });
+            query.$and.push({'sets' : { $elemMatch: { $elemMatch: {$in: [searchResult] }}}});
         }
 
         if(query.$and.length === 0) {
