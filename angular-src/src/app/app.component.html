@@ -12,34 +12,37 @@
             <div class="m-l-10 d-i-b"  *ngIf="games">
                 {{numberFilesRead}} {{numberFilesRead === 1 ? 'game' : 'games'}}
             </div>
-            
-            
+
             <button type="button" class="btn btn-primary btn-sm float-right" (click)="searchDB();">search DB</button>
-            
-            
         </div>
         
         <div class="row m-t-10"> <!-- home, away, location, gender, technical, level -->
-            <div class="col-2 flex" >
-                <div class="col-6 p-l-r-0">
+            <div class="col-4 flex" >
+                <div class="col-2 p-l-r-0">
                     Home
                 </div> 
-                <div class="col-6 p-l-r-0">
+                <div class="col-2 p-l-r-0">
                     <select class="w-50px" [(ngModel)]="homeQueryPoints">
                         <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
                     </select>
                 </div>
-            </div>
-            <div class="col-2 flex">
-                <div class="col-6 p-l-r-0">
+                <div class="col-2 p-l-r-0">
                     Away
                 </div>
-                <div class="col-6 p-l-r-0">
+                <div class="col-2 p-l-r-0">
                     <select class="w-50px" [(ngModel)]="awayQueryPoints">
                         <option *ngFor="let point of points" [ngValue]="point"> {{ point }} </option>
                     </select>
                 </div>
-            </div>
+                <div class="col-2 p-l-r-0">
+                    Set
+                </div>
+                <div class="col-2 p-l-r-0">
+                    <select class="w-50px" [(ngModel)]="querySet">
+                        <option *ngFor="let set of sets" [ngValue]="set"> {{ set.name }} </option>
+                    </select>
+                </div>
+            </div>            
             <div class="col-2 flex">
                 <div class="col-6 p-l-r-0">
                     Location

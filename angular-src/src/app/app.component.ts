@@ -16,6 +16,8 @@ export class AppComponent implements OnInit  {
     public games: Game[];
     public numberFilesRead: number;
     public points: number[];
+    public querySet: NameValuePair;
+    public sets: NameValuePair[];
     public homeQueryPoints: number;
     public awayQueryPoints: number;
     public queryLocation: NameValuePair;
@@ -176,6 +178,15 @@ export class AppComponent implements OnInit  {
         this.levels.push({name: 'junior', value: 'J'});
         this.levels.push({name: 'senior', value: 'S'});
         this.level = {name: '', value: null};
+
+        this.sets = new Array();
+        this.sets.push({name: '', value: null});
+        this.sets.push({name: 'I', value: '0'});
+        this.sets.push({name: 'II', value: '1'});
+        this.sets.push({name: 'III', value: '2'});
+        this.sets.push({name: 'IV', value: '3'});
+        this.sets.push({name: 'V', value: '4'});
+        this.querySet = {name: '', value: null};
 
         this.points = new Array();
         for (let i = 0; i < 60; i++) {
