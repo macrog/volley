@@ -14,11 +14,13 @@ module.exports = {
         }
         if(params.home !== null && params.away !== null) {
             var searchResult =  params.home + ':' + params.away;
-            
-            query.$and.push({'setsAll' : { $elemMatch: {$in: [searchResult] }}});
-            //{"Keys.1" : {$elemMatch : {$in:['pol'] } } }
-            // db.multiArr.find({'Keys':{$elemMatch:{$elemMatch:{$in:['carrot']}}}})
-            
+            if(params.set){
+                var key = 'sets.' + params.set;
+                query.$and.push({[key]: {$elemMatch : {$in: [searchResult] }}});
+                //query.$and.push({'sets.1': {$elemMatch : {$in: ['3:7'] }}});
+            }else {
+                query.$and.push({'setsAll' : { $elemMatch: {$in: [searchResult] }}});
+            }            
         }
 
         if(query.$and.length === 0) {
