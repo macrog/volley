@@ -20,6 +20,7 @@ const port = 3000;
 app.use(cors());
 
 //Middleware for bodyparsing using both json and urlencoding
+app.use(bodyParser({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 

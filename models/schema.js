@@ -69,7 +69,11 @@ const GamelistSchema = mongoose.Schema({
         required: true
     },
     sets: {
-        type: [[String]],
+        type: [{}],
+        required: true
+    },
+    setsAll: {
+        type: [String],
         required: true
     },
     setsFinal: {

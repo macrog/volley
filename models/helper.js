@@ -2,7 +2,7 @@ const gameSchema = require('../models/schema');
 
 module.exports = {
     creteQueryObject: function(params) {
-        let query = { $and:[]};
+        var query = { $and:[]};
         if(params.level){
             query.$and.push({'isSenior': params.level === 'S' ? true :  false});
         }
@@ -14,7 +14,11 @@ module.exports = {
         }
         if(params.home !== null && params.away !== null) {
             var searchResult =  params.home + ':' + params.away;
-            query.$and.push({'sets' : { $elemMatch: { $elemMatch: {$in: [searchResult] }}}});
+            
+            query.$and.push({'setsAll' : { $elemMatch: {$in: [searchResult] }}});
+            //{"Keys.1" : {$elemMatch : {$in:['pol'] } } }
+            // db.multiArr.find({'Keys':{$elemMatch:{$elemMatch:{$in:['carrot']}}}})
+            
         }
 
         if(query.$and.length === 0) {

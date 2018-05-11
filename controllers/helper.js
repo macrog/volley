@@ -22,14 +22,16 @@ module.exports = {
             team1ServiceErrors:  object.team1ServiceErrors,
             team2ServiceErrors:  object.team2ServiceErrors,
             sets:  object.sets,
-            setsFinal: object.setsFinal
+            setsFinal: object.setsFinal,
+            setsAll: object.setsAll
         });
 
         return game;
     },
-    getSetsPoitns: function(array, finalPointOlny) {
+    getSetsPoitns: function(array) {
         var indexsOfEndSet = [];
         var sets = [];
+        var setsToReturn = [];
         var points = array;
         array.forEach((element, index) => {            
             if(element === "1:0" || element === "0:1"){
@@ -46,25 +48,27 @@ module.exports = {
                 last = points.length;
             }
             if(!last) last = points.length;
-
-            if(!finalPointOlny){
-                for(var i = first; i < last; i++){
-                    set.push(points[i]);
-                }
-            }else {
-                set.push(points[last -1]);
+            
+            for(var i = first; i < last; i++){
+                set.push(points[i]);
             }
-
+            
             sets.push(set);
         });
+
+        sets.forEach((set, index) => {
+            var obj = {};
+            obj[index] = set;
+            setsToReturn.push(obj);
+        });
         
-        return sets;
+        return setsToReturn;
     },
     getSetsFinalPoints: function(multiArray) {
         var setsFinal = [];
         if(multiArray.length > 0) {
             for(var i = 0; i < multiArray.length; i++){
-                setsFinal.push(multiArray[i][multiArray[i].length - 1]);
+                setsFinal.push(multiArray[i][i][multiArray[i][i].length - 1]);
             }
         }
         return setsFinal;

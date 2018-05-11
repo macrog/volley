@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/data-test
 
 # dependencies
 /node_modules

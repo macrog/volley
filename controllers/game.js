@@ -131,8 +131,8 @@ router.get('/read', (req, res, next)=> {
 
             lineNumber++;
         }
-        
-        game.sets = tools.getSetsPoitns(points, false);
+        game.setsAll = points;
+        game.sets = tools.getSetsPoitns(points);
         game.setsFinal = tools.getSetsFinalPoints(game.sets);
 
         games.push(game);
