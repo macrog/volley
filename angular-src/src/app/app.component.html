@@ -1,9 +1,9 @@
 
 <div class="container p-l-r-0" id="main-container-wrapper">
     
-    <div id="overlay" *ngIf="workInProgress">            
+    <!-- <div id="overlay" *ngIf="workInProgress">            
         <div class="loader"></div>
-    </div> 
+    </div>  -->
     
         
     <div id="main-container">
@@ -18,8 +18,16 @@
             <div class="m-l-10 d-i-b"  *ngIf="games">
                 {{numberFilesRead}} {{numberFilesRead === 1 ? 'game' : 'games'}}
             </div>
-
+            
             <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm float-right" (click)="searchDB();">search DB</button>
+            <div class="float-right line-height-btn-sm-size m-r-20 bold" *ngIf="workInProgress">
+                <!-- worki in progress ... -->
+                <span class="text-anim">
+                    <span>w</span><span>o</span><span>r</span><span>k</span> 
+                    <span>i</span><span>n</span> 
+                    <span>p</span><span>r</span><span>o</span><span>g</span><span>r</span><span>e</span><span>s</span>
+                </span>
+            </div>
         </div>
         
         <div class="row m-t-10"> <!-- home, away, location, gender, technical, level -->
