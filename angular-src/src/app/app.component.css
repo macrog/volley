@@ -114,7 +114,7 @@
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    animation: spin 2s ease-in-out infinite;
+    animation: spin 2s linear infinite;
     position: absolute;
     top: calc(50% - 60px);
     left: calc(50% - 60px);
@@ -133,7 +133,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0,0,0,0.15);
     z-index: 2;
     cursor: pointer;
 }
