@@ -109,10 +109,11 @@ export class AppComponent implements OnInit  {
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
-        },
-        err => {
-            console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
-        });
+            },
+            err => {
+                console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+            }
+        );
     }
 
     public readDBGames() {
@@ -146,7 +147,7 @@ export class AppComponent implements OnInit  {
     public getSetsByGameId(id: string) {
         this.gameService.getStesFromDBByID(id).subscribe(
             res => {
-                debugger;
+                // not used, probably can be removed
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
