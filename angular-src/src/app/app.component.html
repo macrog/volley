@@ -1,19 +1,25 @@
 
 <div class="container p-l-r-0" id="main-container-wrapper">
+    
+    <div id="overlay" *ngIf="workInProgress">            
+        <div class="loader"></div>
+    </div> 
+    
+        
     <div id="main-container">
         <div class="m-t-10"> <!-- top btns + number of games -->
-            <button type="button" class="btn btn-secondary btn-sm" (click)="readLocalDataFolder();">READ Local</button>
-            <button type="button" class="btn btn-primary btn-sm" (click)="uploadGamesToDB();">UPLOAD</button>
-            <button type="button" class="btn btn-secondary btn-sm" (click)="readDBGames();">READ DB</button>
-            <button type="button" class="btn btn-danger btn-sm" (click)="deleteGame();">DELETE ID</button>
-            <button type="button" class="btn btn-danger btn-sm" (click)="deleteAllGame();">X</button>
-            <button type="button" class="btn btn-primary btn-sm" (click)="clearScreen();">CLEAR</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-secondary btn-sm" (click)="readLocalDataFolder();">READ Local</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm" (click)="uploadGamesToDB();">UPLOAD</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-secondary btn-sm" (click)="readDBGames();">READ DB</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-danger btn-sm" (click)="deleteGame();">DELETE ID</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-danger btn-sm" (click)="deleteAllGame();">X</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm" (click)="clearScreen();">CLEAR</button>
             
             <div class="m-l-10 d-i-b"  *ngIf="games">
                 {{numberFilesRead}} {{numberFilesRead === 1 ? 'game' : 'games'}}
             </div>
 
-            <button type="button" class="btn btn-primary btn-sm float-right" (click)="searchDB();">search DB</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm float-right" (click)="searchDB();">search DB</button>
         </div>
         
         <div class="row m-t-10"> <!-- home, away, location, gender, technical, level -->

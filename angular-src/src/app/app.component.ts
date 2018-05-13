@@ -29,12 +29,15 @@ export class AppComponent implements OnInit  {
     public level: NameValuePair;
     public levels: NameValuePair[];
 
+    // tslint:disable-next-line:no-inferrable-types
+    public workInProgress: boolean = false;
+
 
     constructor(private gameService: GameService,
                 private generalService: GeneralService) {}
 
     ngOnInit() {
-
+        this.workInProgress = true;
         this.generalService.loadValuesForCountries().subscribe(
             res => {
                 this.locations = new Array();
@@ -42,9 +45,11 @@ export class AppComponent implements OnInit  {
                     this.locations.push({name: element, value: element !== '' ? element : null});
                 });
                 this.queryLocation = {name: '', value: null};
+                this.workInProgress = false;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Cant find uniqye fields in DB...');
+                this.workInProgress = false;
             }
         );
 
@@ -52,13 +57,16 @@ export class AppComponent implements OnInit  {
     }
 
     public readLocalDataFolder() {
+        this.workInProgress = true;
         this.gameService.loadGamesFromDataFolder().subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
+                this.workInProgress = false;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+                this.workInProgress = false;
             }
         );
     }
@@ -82,53 +90,66 @@ export class AppComponent implements OnInit  {
     }
 
     public uploadGamesToDB() {
+        this.workInProgress = true;
         this.gameService.uploadGamesToDB(this.games).subscribe(
             (res: NodeResponse) => {
                 if (res.success) { console.log(res.message); }
                 if (!res.success) { console.error(res.message); }
+                this.workInProgress = false;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+                this.workInProgress = false;
             }
         );
     }
 
     public deleteGame() {
+        this.workInProgress = true;
         this.gameService.deleteGamesFromDB('this.games').subscribe(
             (res: NodeResponse) => {
                 if (res.success) { console.log(res.message); }
+                this.workInProgress = false;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+                this.workInProgress = false;
             }
         );
     }
 
     public deleteAllGame() {
+        this.workInProgress = true;
         this.gameService.deleteAllGamesFromDB().subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
+                this.workInProgress = false;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+                this.workInProgress = false;
             }
         );
     }
 
     public readDBGames() {
+        this.workInProgress = true;
         this.gameService.loadGamesFromDB().subscribe(
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
+                this.workInProgress = false;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+                this.workInProgress = false;
             }
         );
     }
 
     public searchDB() {
+        this.workInProgress = true;
         this.gameService.findGames(
                 this.homeQueryPoints, this.awayQueryPoints, this.querySet.value, this.queryLocation.value,
                 this.gender.value, this.level.value
@@ -136,10 +157,12 @@ export class AppComponent implements OnInit  {
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
+                this.workInProgress = false;
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText +
                 '. Getting games from DB with conditions score search...');
+                this.workInProgress = false;
             }
         );
     }
