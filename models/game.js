@@ -31,6 +31,6 @@ module.exports.getSets = (id, callback) => {
 
 //find({}) delete all objects
 module.exports.findGamesWhere = (params, callback) => {    
-    GameList.find( tools.creteQueryObject(params), callback);    
+    GameList.find( tools.creteQueryObject(params), {setsAll: 0}, callback);    
 }
 
