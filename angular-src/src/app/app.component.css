@@ -217,6 +217,9 @@
 .poitns-match{
     border: 1px solid blue;
 }
+.background-red{
+    background-color: red;
+}
 .points{
     margin: 1px;
     width: 10px;

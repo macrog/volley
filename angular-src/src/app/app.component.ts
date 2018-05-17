@@ -150,6 +150,7 @@ export class AppComponent implements OnInit  {
 
     public searchDB() {
         this.workInProgress = true;
+        this.clearScreen();
         if (this.homeQueryPoints !== null && this.awayQueryPoints !== null) {
             this.searchPoints = this.homeQueryPoints + ':' + this.awayQueryPoints;
         }
@@ -179,6 +180,30 @@ export class AppComponent implements OnInit  {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
             }
         );
+    }
+
+    public setBackground(points: string, prevPoints: string, position: number): boolean{
+        debugger;
+        if (!prevPoints) {
+            if (position === 0) {
+                return points === '1:0' ? true : false;
+            }else {
+                debugger
+                return points === '0:1' ? true : false;
+            }
+        }else {
+            debugger
+            let p = points.split(':');
+            let p_1 = prevPoints.split(':');
+
+            let difHome = Number(p[0]) - Number(p_1[0]);
+            let difAway = Number(p[1]) - Number(p_1[1]);
+            if (position === 0) {
+                return difHome > difAway ? true : false;
+            }else {
+                return difHome < difAway ? true : false;
+            }
+        }
     }
 
     public clearScreen(): void {
