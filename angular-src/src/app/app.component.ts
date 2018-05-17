@@ -12,7 +12,7 @@ import { NameValuePair } from 'viewmodel/name-value-pair';
 })
 export class AppComponent implements OnInit  {
 
-    public title = 'app works!';
+    public searchPoints: string;
     public games: Game[];
     public numberFilesRead: number;
     public points: number[];
@@ -150,6 +150,9 @@ export class AppComponent implements OnInit  {
 
     public searchDB() {
         this.workInProgress = true;
+        if (this.homeQueryPoints !== null && this.awayQueryPoints !== null) {
+            this.searchPoints = this.homeQueryPoints + ':' + this.awayQueryPoints;
+        }
         this.gameService.findGames(
                 this.homeQueryPoints, this.awayQueryPoints, this.querySet.value, this.queryLocation.value,
                 this.gender.value, this.level.value

@@ -210,5 +210,16 @@
    50% { opacity: 1; }
    75% { opacity: 0.5; }
   100% { opacity: 0; }
-
+}
+.set-wrapper{
+    border: 1px solid #e6e6e6;
+}
+.poitns-match{
+    border: 1px solid blue;
+}
+.points{
+    margin: 1px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid red;
 }

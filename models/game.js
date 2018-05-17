@@ -3,7 +3,7 @@ const tools = require('./helper');
 
 //find() returns all the lists
 module.exports.getAllLists = (callback) => {
-    GameList.find({}, callback);
+    GameList.find({}, {setsAll: 0}, callback);
 }
 //newList.save is used to insert the document into MongoDB
 module.exports.addList = (newList, callback) => {

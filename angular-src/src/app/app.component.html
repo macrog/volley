@@ -195,9 +195,14 @@
                     </div>                    
                 </div>
                 <!-- visual part of the set -->
-                <div class="col-12 p-l-r-0">
-                    <div *ngFor="let set of game.sets">
-                        set
+                <div class="col-12 p-l-r-0 m-l-10">
+                    <div *ngFor="let set of game.sets; let i = index;">
+                        <div class="set-wrapper flex">
+                            <div *ngFor="let points of set[i]" [ngClass]="{'poitns-match': points === searchPoints}">
+                                <div class="points"></div>
+                                <div class="points"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

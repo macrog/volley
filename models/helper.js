@@ -17,7 +17,6 @@ module.exports = {
             if(params.set){
                 var key = 'sets.' + params.set;
                 query.$and.push({[key]: {$elemMatch : {$in: [searchResult] }}});
-                //query.$and.push({'sets.1': {$elemMatch : {$in: ['3:7'] }}});
             }else {
                 query.$and.push({'setsAll' : { $elemMatch: {$in: [searchResult] }}});
             }            
