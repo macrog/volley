@@ -8,10 +8,11 @@ import { GameService } from 'services/game.service';
 import { HttpService } from 'services/http.service';
 import { GetSetPipe } from 'pipes/getset.pipe';
 import { GeneralService } from 'services/general.service';
+import { SubPipe } from 'pipes/substraction.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent, GetSetPipe
+    AppComponent, GetSetPipe, SubPipe
   ],
   imports: [
     BrowserModule,

@@ -182,22 +182,19 @@ export class AppComponent implements OnInit  {
         );
     }
 
-    public setBackground(points: string, prevPoints: string, position: number): boolean{
-        debugger;
+    public setBackground(points: string, prevPoints: string, position: number): boolean {
         if (!prevPoints) {
             if (position === 0) {
                 return points === '1:0' ? true : false;
             }else {
-                debugger
                 return points === '0:1' ? true : false;
             }
         }else {
-            debugger
-            let p = points.split(':');
-            let p_1 = prevPoints.split(':');
+            const p = points.split(':');
+            const p_1 = prevPoints.split(':');
 
-            let difHome = Number(p[0]) - Number(p_1[0]);
-            let difAway = Number(p[1]) - Number(p_1[1]);
+            const difHome = Number(p[0]) - Number(p_1[0]);
+            const difAway = Number(p[1]) - Number(p_1[1]);
             if (position === 0) {
                 return difHome > difAway ? true : false;
             }else {
