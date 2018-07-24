@@ -29,14 +29,14 @@ export class AppComponent implements OnInit  {
     public level: NameValuePair;
     public levels: NameValuePair[];
     public workInProgress: boolean;
-    public showSets: boolean;
+    public showStats: boolean;
 
 
     constructor(private gameService: GameService,
                 private generalService: GeneralService) {}
 
     ngOnInit() {
-        this.showSets = false;
+        this.showStats = false;
         this.workInProgress = true;
         this.generalService.loadValuesForCountries().subscribe(
             res => {

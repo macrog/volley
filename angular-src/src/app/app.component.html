@@ -10,7 +10,7 @@
             <button type="button" [disabled]="workInProgress" class="btn btn-danger btn-sm" (click)="deleteAllGame();">X</button>
             <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm" (click)="clearScreen();">CLEAR</button>
             
-            <label><input type="checkbox" /> STATS</label>
+            <label><input type="checkbox" [(ngModel)]="showStats" /> STATS</label>
             
             <div class="m-l-10 d-i-b"  *ngIf="games">
                 {{numberFilesRead}} {{numberFilesRead === 1 ? 'game' : 'games'}}
@@ -96,7 +96,7 @@
             </div>
         </div>
 
-        <div class="container p-l-r-0 m-t-10 overflow" id="games-container" *ngIf="games">
+        <div class="container p-l-r-0 m-t-10 overflow" id="games-container" *ngIf="games && !showStats">
             <div class="m-t-5" *ngFor="let game of games; let ind = index;">
                 <div id="game-container" class="hand" [ngClass]="{'odd' : ind % 2 === 0, 'even' : ind % 2 !== 0}" (click)="game.showSets = !game.showSets;">
                     <div class="row m-l-r-0" style="height: 49px;">
@@ -179,6 +179,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container p-l-r-0 m-t-10 overflow" id="games-container" *ngIf="games && showStats">
+            STATS
         </div>
     </div>    
 </div>
