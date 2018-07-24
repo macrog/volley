@@ -28,15 +28,15 @@ export class AppComponent implements OnInit  {
     public genders: NameValuePair[];
     public level: NameValuePair;
     public levels: NameValuePair[];
-
-    // tslint:disable-next-line:no-inferrable-types
-    public workInProgress: boolean = false;
+    public workInProgress: boolean;
+    public showSets: boolean;
 
 
     constructor(private gameService: GameService,
                 private generalService: GeneralService) {}
 
     ngOnInit() {
+        this.showSets = false;
         this.workInProgress = true;
         this.generalService.loadValuesForCountries().subscribe(
             res => {

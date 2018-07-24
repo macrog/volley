@@ -229,3 +229,16 @@
 .overflow-x-auto{
     overflow-x: auto;
 }
+label {
+    border:1px solid #ccc;
+    padding:5px;
+    margin:0 0 10px;
+}
+   
+label:hover {
+    background:#eee;
+    cursor:pointer;
+}
+.hand{
+    cursor:pointer;
+}

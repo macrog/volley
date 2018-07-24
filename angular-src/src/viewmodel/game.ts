@@ -22,4 +22,7 @@ export class Game {
 
     // db variable
     public _id?: string;
+
+    //frontend flag
+    public showSets: boolean;
 }
