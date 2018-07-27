@@ -73,6 +73,36 @@ module.exports = {
         }
         return setsFinal;
     },
+    getStats: function(lists, points, set) {        
+        var arrayKeys = [];
+        var stats = [];
+        lists.forEach(game => {
+            game.setsFinal.forEach(setFinalScore => {  
+                var obj = {
+                    result: '',
+                    count: 0,
+                    dif: 0,
+                    sum: 0
+                }              
+                if(arrayKeys.indexOf(setFinalScore) === -1) {
+                    var score = setFinalScore.split(':')
+                    arrayKeys.push(setFinalScore);
+                    obj.result = setFinalScore;
+                    obj.count++;
+                    obj.dif = parseInt(score[0]) - parseInt(score[1]);
+                    obj.sum = parseInt(score[0]) + parseInt(score[1]);
+
+                    stats.push(obj);
+                }else {
+                    var index = stats.findIndex(x => x.result === setFinalScore);
+                    stats[index].count++;
+                }
+                
+            });
+        });
+
+        return stats;
+    },
     multiply: function(a,b) {
         return a*b
     }

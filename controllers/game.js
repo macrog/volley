@@ -172,6 +172,15 @@ router.get('/find/:data', (req, res, next)=> {
             res.json({success: false, message: `Failed to find items. Error: ${err}`});
         }
         else {
+            let points = null;
+            let set = null;
+            if(params.home !== null && params.away !== null) {
+                points =  params.home + ':' + params.away;
+            }
+            params.set !== null ? set = params.set : null;
+            
+            var stats = tools.getStats(lists, points, set);
+            //TODO: send stats array to frontend
             res.json({list: lists, numberFiles: lists.length});
         }
     });    
