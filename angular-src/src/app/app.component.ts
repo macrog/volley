@@ -4,6 +4,7 @@ import { GameService } from 'services/game.service';
 import { NodeResponse } from 'viewmodel/nodeResponse';
 import { GeneralService } from 'services/general.service';
 import { NameValuePair } from 'viewmodel/name-value-pair';
+import { Stats } from 'viewmodel/stats';
 
 @Component({
     selector: 'app-root',
@@ -30,6 +31,9 @@ export class AppComponent implements OnInit  {
     public levels: NameValuePair[];
     public workInProgress: boolean;
     public showStats: boolean;
+    public stats: Stats[];
+    public totalCount: number;
+    public totalCountWeight: number;
 
 
     constructor(private gameService: GameService,
@@ -161,6 +165,15 @@ export class AppComponent implements OnInit  {
             gameReadRes => {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
+                this.stats = gameReadRes.stats ? gameReadRes.stats : [];
+                if(this.stats.length > 0) {
+                    const obj = this.getTotalCount(this.stats);
+                    this.totalCount = obj.totalCount;
+                    this.totalCountWeight = obj.totalCountWeight;
+                }else {
+                    this.totalCount = 0;
+                    this.totalCountWeight = 0;
+                }
                 this.workInProgress = false;
             },
             err => {
@@ -208,6 +221,13 @@ export class AppComponent implements OnInit  {
         this.numberFilesRead = null;
     }
 
+    public round(value, step) {
+        // tslint:disable-next-line:no-unused-expression
+        step || (step = 1.0);
+        const inv = 1.0 / step;
+        return Math.round(value * inv) / inv;
+    }
+
     // --------------------------------PRIVATE MEMBERS--------------------------------------------- //
     private initialize(): void {
         this.breaks = new Array();
@@ -242,5 +262,15 @@ export class AppComponent implements OnInit  {
             this.points.push(i);
         }
         this.points.unshift(null);
+    }
+
+    private getTotalCount(stats: Stats[]): any {
+        let totalCount = 0;
+        let totalCountWeight = 0;
+        stats.forEach( (element: Stats) => {
+            totalCount += element.count;
+            totalCountWeight += element.count * element.dif;
+        });
+        return { totalCount: totalCount, totalCountWeight: totalCountWeight };
     }
 }

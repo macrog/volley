@@ -181,7 +181,34 @@
             </div>
         </div>
         <div class="container p-l-r-0 m-t-10 overflow" id="games-container" *ngIf="games && showStats">
-            STATS
+            <div *ngIf="stats.length > 0">
+                <div class="col-6 flex">
+                    <div class="col-2 bold">Result</div>
+                    <div class="col-2 bold">Count</div>
+                    <div class="col-2 bold">%</div>
+                    <div class="col-2 bold">Dif</div>
+                    <div class="col-2 bold">Weight</div>
+                    <div class="col-2 bold">Sum</div>
+                </div>
+                <div *ngFor="let s of stats">
+                    <div class="col-6 flex">
+                        <div class="col-2">{{ s.result }}</div>
+                        <div class="col-2">{{ s.count }}</div>
+                        <div class="col-2">{{ (s.count / totalCount) | percent }}</div>
+                        <div class="col-2">{{ s.dif }}</div>
+                        <div class="col-2">{{ s.dif * s.count }}</div>
+                        <div class="col-2">{{ s.sum }}</div>
+                    </div>
+                </div>
+                <hr>
+                handicap
+                <div>{{ (totalCountWeight/stats.length)/stats.length }}</div>
+                linia
+                <div>{{round((totalCountWeight/stats.length)/stats.length, 0.5)}}</div>
+            </div>
+            <div *ngIf="stats.length === 0">
+                NO STATS AVAILABLE
+            </div>
         </div>
     </div>    
 </div>

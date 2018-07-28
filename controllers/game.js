@@ -180,8 +180,13 @@ router.get('/find/:data', (req, res, next)=> {
             params.set !== null ? set = params.set : null;
             
             var stats = tools.getStats(lists, points, set);
-            //TODO: send stats array to frontend
-            res.json({list: lists, numberFiles: lists.length});
+            stats.sort( (a, b) => {
+                if(a.count > b.count)
+                    return -1;
+                else
+                    return 1;
+            });
+            res.json({list: lists, numberFiles: lists.length, stats: stats});
         }
     });    
 });
