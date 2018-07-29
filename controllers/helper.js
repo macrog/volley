@@ -101,15 +101,14 @@ module.exports = {
                     }                
                 });
             } else if(points && set) {
-                
+                var setFinalScore = game.setsFinal[set];
                 if(arrayKeys.indexOf(game.setsFinal[set]) === -1) {
                     var obj = {
                         result: '',
                         count: 0,
                         dif: 0,
                         sum: 0
-                    }        
-                    var setFinalScore = game.setsFinal[set];  
+                    } 
                     var score = setFinalScore.split(':')
                     arrayKeys.push(setFinalScore);
                     obj.result = setFinalScore;
@@ -125,14 +124,15 @@ module.exports = {
             } else if(points) {
                 game.sets.forEach( (set, i) => {
                     if(set[i].indexOf(points) !== -1) {
-                        if(arrayKeys.indexOf(points) === -1) {
+                        var setFinalScore = set[i][set[i].length-1];
+                        if(arrayKeys.indexOf(setFinalScore) === -1) {
                             var obj = {
                                 result: '',
                                 count: 0,
                                 dif: 0,
                                 sum: 0
                             }          
-                            var setFinalScore = set[i][set[i].length-1];
+                            
                             var score = setFinalScore.split(':')
                             arrayKeys.push(setFinalScore);
                             obj.result = setFinalScore;
