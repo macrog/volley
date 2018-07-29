@@ -59,7 +59,7 @@
                     Location
                 </div> 
                 <div class="col-6 p-l-r-0">
-                    <select [(ngModel)]="queryLocation">
+                    <select [(ngModel)]="queryLocation" style="width: 100px">
                         <option *ngFor="let location of locations" [ngValue]="location"> {{ location.name }} </option>
                     </select>
                 </div> 

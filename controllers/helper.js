@@ -76,15 +76,40 @@ module.exports = {
     getStats: function(lists, points, set) {        
         var arrayKeys = [];
         var stats = [];
+        
         lists.forEach(game => {
-            game.setsFinal.forEach(setFinalScore => {  
-                var obj = {
-                    result: '',
-                    count: 0,
-                    dif: 0,
-                    sum: 0
-                }              
-                if(arrayKeys.indexOf(setFinalScore) === -1) {
+            if(points === null && set === null) {
+                game.setsFinal.forEach(setFinalScore => {  
+                    var obj = {
+                        result: '',
+                        count: 0,
+                        dif: 0,
+                        sum: 0
+                    }              
+                    if(arrayKeys.indexOf(setFinalScore) === -1) {
+                        var score = setFinalScore.split(':')
+                        arrayKeys.push(setFinalScore);
+                        obj.result = setFinalScore;
+                        obj.count++;
+                        obj.dif = parseInt(score[0]) - parseInt(score[1]);
+                        obj.sum = parseInt(score[0]) + parseInt(score[1]);
+    
+                        stats.push(obj);
+                    }else {
+                        var index = stats.findIndex(x => x.result === setFinalScore);
+                        stats[index].count++;
+                    }                
+                });
+            } else if(points && set) {
+                
+                if(arrayKeys.indexOf(game.setsFinal[set]) === -1) {
+                    var obj = {
+                        result: '',
+                        count: 0,
+                        dif: 0,
+                        sum: 0
+                    }        
+                    var setFinalScore = game.setsFinal[set];  
                     var score = setFinalScore.split(':')
                     arrayKeys.push(setFinalScore);
                     obj.result = setFinalScore;
@@ -97,9 +122,34 @@ module.exports = {
                     var index = stats.findIndex(x => x.result === setFinalScore);
                     stats[index].count++;
                 }
-                
-            });
+            } else if(points) {
+                game.sets.forEach( (set, i) => {
+                    if(set[i].indexOf(points) !== -1) {
+                        if(arrayKeys.indexOf(points) === -1) {
+                            var obj = {
+                                result: '',
+                                count: 0,
+                                dif: 0,
+                                sum: 0
+                            }          
+                            var setFinalScore = set[i][set[i].length-1];
+                            var score = setFinalScore.split(':')
+                            arrayKeys.push(setFinalScore);
+                            obj.result = setFinalScore;
+                            obj.count++;
+                            obj.dif = parseInt(score[0]) - parseInt(score[1]);
+                            obj.sum = parseInt(score[0]) + parseInt(score[1]);
+        
+                            stats.push(obj);
+                        }else {
+                            var index = stats.findIndex(x => x.result === setFinalScore);
+                            stats[index].count++;
+                        }
+                    }
+                });
+            }
         });
+        
 
         return stats;
     },
