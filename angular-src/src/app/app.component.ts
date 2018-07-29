@@ -34,6 +34,8 @@ export class AppComponent implements OnInit  {
     public stats: Stats[];
     public totalCount: number;
     public totalCountWeight: number;
+    public totalStats: any[];
+    public totalCountWeightSum: number;
 
 
     constructor(private gameService: GameService,
@@ -170,6 +172,16 @@ export class AppComponent implements OnInit  {
                     const obj = this.getTotalCount(this.stats);
                     this.totalCount = obj.totalCount;
                     this.totalCountWeight = obj.totalCountWeight;
+                    this.totalStats = this.getTotalStats(this.stats);
+                    this.totalStats = this.totalStats.sort( (a, b) => {
+                        if (a.sum > b.sum) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    });
+
+                    this.totalCountWeightSum = this.getTotalCountWeightSum(this.totalStats);
                 }else {
                     this.totalCount = 0;
                     this.totalCountWeight = 0;
@@ -221,11 +233,16 @@ export class AppComponent implements OnInit  {
         this.numberFilesRead = null;
     }
 
-    public round(value, step) {
-        // tslint:disable-next-line:no-unused-expression
-        step || (step = 1.0);
-        const inv = 1.0 / step;
-        return Math.round(value * inv) / inv;
+    public round(value) {
+        let line = 0;
+        const int_part = Math.trunc(value);
+        const float_part = Number((value - int_part).toFixed(2));
+        if (float_part > 0 && float_part < 0.5) {
+            line = int_part - 0.5;
+        } else {
+            line = int_part + 0.5;
+        }
+        return line;
     }
 
     // --------------------------------PRIVATE MEMBERS--------------------------------------------- //
@@ -272,5 +289,44 @@ export class AppComponent implements OnInit  {
             totalCountWeight += element.count * element.dif;
         });
         return { totalCount: totalCount, totalCountWeight: totalCountWeight };
+    }
+
+    private getTotalStats(stats: Stats[]): any[] {
+        const arrayKeys = [];
+        const array = [];
+        stats.forEach( (element: Stats) => {
+            const res = element.result.split(':');
+            const obj = {
+                sum: 0,
+                count: 0,
+                weight: 0
+            };
+            if (arrayKeys.indexOf(parseInt(res[0], 10) + parseInt(res[1], 10)) === -1) {
+                obj.sum = parseInt(res[0], 10) + parseInt(res[1], 10);
+                obj.count += element.count;
+                obj.weight = 0;
+                arrayKeys.push(parseInt(res[0], 10) + parseInt(res[1], 10));
+                array.push(obj);
+            }else {
+                const index = array.findIndex(x => x.sum === parseInt(res[0], 10) + parseInt(res[1], 10));
+                array[index].count += element.count;
+            }
+        });
+
+        array.forEach( element => {
+            element.weight = element.count * element.sum;
+        });
+
+        return array;
+    }
+
+    private getTotalCountWeightSum(ts: any[]): number {
+        let total = 0;
+
+        ts.forEach(element => {
+            total += element.weight;
+        });
+
+        return total;
     }
 }
