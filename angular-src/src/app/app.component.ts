@@ -168,7 +168,7 @@ export class AppComponent implements OnInit  {
                 this.games = gameReadRes ? gameReadRes.list : [];
                 this.numberFilesRead = gameReadRes.numberFiles;
                 this.stats = gameReadRes.stats ? gameReadRes.stats : [];
-                if(this.stats.length > 0) {
+                if (this.stats.length > 0) {
                     const obj = this.getTotalCount(this.stats);
                     this.totalCount = obj.totalCount;
                     this.totalCountWeight = obj.totalCountWeight;
