@@ -13,6 +13,12 @@
     "mongoose": "4.11.0",
     "n-readlines": "0.2.8"
   },
+  "devDependencies": {
+    "mime": "1.4.1",
+    "debug": "2.6.9",
+    "atob": "2.1.0",
+    "fresh": "0.5.2"
+  },
   "author": "Maciej Gorczynski",
   "license": "ISC"
 }

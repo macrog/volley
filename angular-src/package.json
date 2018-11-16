@@ -50,11 +50,7 @@
     "url-parse": "1.4.3",
     "adm-zip": "0.4.11",
     "https-proxy-agent": "2.2.0",
-    "mime": "1.4.1",
-    "debug": "2.6.9",
-    "atob": "2.1.0",
-    "fresh": "0.5.2",
-    "jquery": "1.9.1",
+    "jquery": "3.0.0",
     "popper.js": "1.14.3"
   }
 }
