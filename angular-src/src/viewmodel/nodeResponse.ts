@@ -1,4 +1,4 @@
-export class NodeResponse{
+export class NodeResponse {
     success: boolean;
     message: string;
 }

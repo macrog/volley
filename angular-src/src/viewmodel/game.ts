@@ -23,6 +23,6 @@ export class Game {
     // db variable
     public _id?: string;
 
-    //frontend flag
+    // frontend flag
     public showSets: boolean;
 }
