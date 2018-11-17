@@ -36,6 +36,8 @@ export class AppComponent implements OnInit  {
     public totalCountWeight: number;
     public totalStats: any[];
     public totalCountWeightSum: number;
+    public totalWeightSum: number;
+
 
 
     constructor(private gameService: GameService,
@@ -181,7 +183,9 @@ export class AppComponent implements OnInit  {
                         }
                     });
 
-                    this.totalCountWeightSum = this.getTotalCountWeightSum(this.totalStats);
+                    const obj1 = this.getTotalCountWeightSum(this.totalStats);
+                    this.totalCountWeightSum = obj1.total;
+                    this.totalWeightSum = obj1.totalWeight;
                 }else {
                     this.totalCount = 0;
                     this.totalCountWeight = 0;
@@ -320,13 +324,17 @@ export class AppComponent implements OnInit  {
         return array;
     }
 
-    private getTotalCountWeightSum(ts: any[]): number {
-        let total = 0;
+    private getTotalCountWeightSum(ts: any[]): any {
+        const obj = {
+            total: 0,
+            totalWeight: 0
+        };
 
         ts.forEach(element => {
-            total += element.weight;
+            obj.total += element.weight;
+            obj.totalWeight += element.weight * element.sum;
         });
 
-        return total;
+        return obj;
     }
 }
