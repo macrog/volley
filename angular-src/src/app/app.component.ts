@@ -54,6 +54,8 @@ export class AppComponent implements OnInit  {
                 });
                 this.queryLocation = {name: '', value: null};
                 this.workInProgress = false;
+
+                this.loadLeaguesPerCountry();
             },
             err => {
                 console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Cant find uniqye fields in DB...');
@@ -62,6 +64,27 @@ export class AppComponent implements OnInit  {
         );
 
         this.initialize();
+    }
+
+    private loadLeaguesPerCountry() {
+        this.locations.forEach(locationObj => {
+            if (locationObj.value) {
+                this.generalService.loadValuesForLEagues(locationObj.value).subscribe(
+                    res => {
+                        console.log('| ----------- ' + locationObj.value + '----------- |');
+                        res.forEach(element => {
+                            if (element !== null || element !== '') {
+                                console.log('\t' + element);
+                            }
+                        });
+                    },
+                    err => {
+                        console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Cant find uniqye fields in DB...');
+                        this.workInProgress = false;
+                    }
+                );
+            }
+        });
     }
 
     public readLocalDataFolder() {

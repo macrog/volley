@@ -33,12 +33,12 @@ module.exports = {
         var sets = [];
         var setsToReturn = [];
         var points = array;
-        array.forEach((element, index) => {            
+        array.forEach((element, index) => {
             if(element === "1:0" || element === "0:1"){
-                indexsOfEndSet.push(index);                
-            }            
-        });    
-        indexsOfEndSet.forEach((value, index) => {           
+                indexsOfEndSet.push(index);
+            }
+        });
+        indexsOfEndSet.forEach((value, index) => {
             var set = [];
             var first = value;
             var last;
@@ -48,11 +48,11 @@ module.exports = {
                 last = points.length;
             }
             if(!last) last = points.length;
-            
+
             for(var i = first; i < last; i++){
                 set.push(points[i]);
             }
-            
+
             sets.push(set);
         });
 
@@ -61,7 +61,7 @@ module.exports = {
             obj[index] = set;
             setsToReturn.push(obj);
         });
-        
+
         return setsToReturn;
     },
     getSetsFinalPoints: function(multiArray) {
@@ -73,32 +73,32 @@ module.exports = {
         }
         return setsFinal;
     },
-    getStats: function(lists, points, set) {        
+    getStats: function(lists, points, set) {
         var arrayKeys = [];
         var stats = [];
-        
+
         lists.forEach(game => {
             if(points === null && set === null) {
-                game.setsFinal.forEach(setFinalScore => {  
+                game.setsFinal.forEach(setFinalScore => {
                     var obj = {
                         result: '',
                         count: 0,
                         dif: 0,
                         sum: 0
-                    }              
+                    }
                     if(arrayKeys.indexOf(setFinalScore) === -1) {
                         var score = setFinalScore.split(':')
                         arrayKeys.push(setFinalScore);
                         obj.result = setFinalScore;
                         obj.count++;
-                        obj.dif = parseInt(score[0]) - parseInt(score[1]);
+                        obj.dif = parseInt(score[1]) - parseInt(score[0]);
                         obj.sum = parseInt(score[0]) + parseInt(score[1]);
-    
+
                         stats.push(obj);
                     }else {
                         var index = stats.findIndex(x => x.result === setFinalScore);
                         stats[index].count++;
-                    }                
+                    }
                 });
             } else if(points && set) {
                 var setFinalScore = game.setsFinal[set];
@@ -108,12 +108,12 @@ module.exports = {
                         count: 0,
                         dif: 0,
                         sum: 0
-                    } 
+                    }
                     var score = setFinalScore.split(':')
                     arrayKeys.push(setFinalScore);
                     obj.result = setFinalScore;
                     obj.count++;
-                    obj.dif = parseInt(score[0]) - parseInt(score[1]);
+                    obj.dif = parseInt(score[1]) - parseInt(score[0]);
                     obj.sum = parseInt(score[0]) + parseInt(score[1]);
 
                     stats.push(obj);
@@ -131,15 +131,15 @@ module.exports = {
                                 count: 0,
                                 dif: 0,
                                 sum: 0
-                            }          
-                            
+                            }
+
                             var score = setFinalScore.split(':')
                             arrayKeys.push(setFinalScore);
                             obj.result = setFinalScore;
                             obj.count++;
-                            obj.dif = parseInt(score[0]) - parseInt(score[1]);
+                            obj.dif = parseInt(score[1]) - parseInt(score[0]);
                             obj.sum = parseInt(score[0]) + parseInt(score[1]);
-        
+
                             stats.push(obj);
                         }else {
                             var index = stats.findIndex(x => x.result === setFinalScore);
@@ -149,7 +149,7 @@ module.exports = {
                 });
             }
         });
-        
+
 
         return stats;
     },

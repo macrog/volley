@@ -20,4 +20,13 @@ export class GeneralService {
 
         return result;
     }
+
+    public loadValuesForLEagues(location: string): Observable<string[]> {
+        let result: Observable<string[]>;
+
+        result = this.httpService.getHttp(`${this.baseURL}general/league/` + location);
+
+        return result;
+    }
+
 }
