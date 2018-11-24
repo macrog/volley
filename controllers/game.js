@@ -80,69 +80,78 @@ router.get('/read', (req, res, next)=> {
     let game = new gameSchema();
 
     let numberFiles = 0;
-
+    let fileGlobal = '';
     const notCsvFiles = [];
-    fs.readdirSync(testFolder).forEach(file => {
-        if (file.split('.')[1].toLocaleLowerCase() === 'csv') {
-            let game = new gameSchema();
-            numberFiles++;
-            var liner = new lineByLine(testFolder + '/' + file);
-            var line;
-            var lineNumber = 0;
-            var points = [];
-            var regexSenior = RegExp('U[0-9]{2}|student');
-            var regexMale = RegExp('women');
-            while (line = liner.next()) {
-                var lineSplit = line.toString().split(',');
+    try {       
+    
+        fs.readdirSync(testFolder).forEach(file => {
+            fileGlobal = file;
+            if (file.split('.')[1].toLocaleLowerCase() === 'csv') {
+                let game = new gameSchema();
+                numberFiles++;
+                var liner = new lineByLine(testFolder + '/' + file);
+                var line;
+                var lineNumber = 0;
+                var points = [];
+                var regexSenior = RegExp('U[0-9]{2}|student');
+                var regexMale = RegExp('women');
+                while (line = liner.next()) {
+                    var lineSplit = line.toString().split(',');
 
-                if(lineNumber === 1){
-                    game.location = removeFirstAndLast(lineSplit[1]);
-                    game.leaugue = removeFirstAndLast(lineSplit[2]);
-                    game.isMale = regexMale.test(game.leaugue) ? false : true;
-                    game.team1Name = removeFirstAndLast(lineSplit[4]);
-                    game.team2Name = removeFirstAndLast(lineSplit[5]);
-                    game.isSenior = regexSenior.test(game.team1Name) ? false : true;
-                }else if(lineNumber === 3){
-                    game.team1Set = removeFirstAndLast(lineSplit[1]);
-                    game.team2Set = removeFirstAndLast(lineSplit[3]);
-                }else if(lineNumber === 4){
-                    game.team1Points = removeFirstAndLast(lineSplit[1]);
-                    game.team2Points = removeFirstAndLast(lineSplit[3]);
-                }else if(lineNumber === 6){
-                    game.team1Aces = removeFirstAndLast(lineSplit[1]);
-                    game.team2Aces = removeFirstAndLast(lineSplit[3]);
-                }else if(lineNumber === 7){
-                    game.team1ServiceErrors = removeFirstAndLast(lineSplit[1]);
-                    game.team2ServiceErrors = removeFirstAndLast(lineSplit[3]);
-                }else if(lineNumber === 8){
-                    game.team1Kills = removeFirstAndLast(lineSplit[1]);
-                    game.team2Kills = removeFirstAndLast(lineSplit[3]);
-                }else if(lineNumber === 9){
-                    game.team1Blocks = removeFirstAndLast(lineSplit[1]);
-                    game.team2Blocks = removeFirstAndLast(lineSplit[3]);
-                }
-
-                for(var i = 0; i < lineSplit.length; i++){
-                    if(lineSplit[i].indexOf('[') !== -1){
-                        var endIndex = lineSplit[i].indexOf(']');
-                        points.push(lineSplit[i].substring(2, endIndex).replace(/\s/g,''));
+                    if(lineNumber === 1){
+                        game.location = removeFirstAndLast(lineSplit[1]);
+                        game.leaugue = removeFirstAndLast(lineSplit[2]);
+                        game.isMale = regexMale.test(game.leaugue) ? false : true;
+                        game.team1Name = removeFirstAndLast(lineSplit[4]);
+                        game.team2Name = removeFirstAndLast(lineSplit[5]);
+                        game.isSenior = regexSenior.test(game.team1Name) ? false : true;
+                    }else if(lineNumber === 3){
+                        game.team1Set = removeFirstAndLast(lineSplit[1]);
+                        game.team2Set = removeFirstAndLast(lineSplit[3]);
+                    }else if(lineNumber === 4){
+                        game.team1Points = removeFirstAndLast(lineSplit[1]);
+                        game.team2Points = removeFirstAndLast(lineSplit[3]);
+                    }else if(lineNumber === 6){
+                        game.team1Aces = removeFirstAndLast(lineSplit[1]);
+                        game.team2Aces = removeFirstAndLast(lineSplit[3]);
+                    }else if(lineNumber === 7){
+                        game.team1ServiceErrors = removeFirstAndLast(lineSplit[1]);
+                        game.team2ServiceErrors = removeFirstAndLast(lineSplit[3]);
+                    }else if(lineNumber === 8){
+                        game.team1Kills = removeFirstAndLast(lineSplit[1]);
+                        game.team2Kills = removeFirstAndLast(lineSplit[3]);
+                    }else if(lineNumber === 9){
+                        game.team1Blocks = removeFirstAndLast(lineSplit[1]);
+                        game.team2Blocks = removeFirstAndLast(lineSplit[3]);
                     }
+
+                    for(var i = 0; i < lineSplit.length; i++){
+                        if(lineSplit[i].indexOf('[') !== -1){
+                            var endIndex = lineSplit[i].indexOf(']');
+                            points.push(lineSplit[i].substring(2, endIndex).replace(/\s/g,''));
+                        }
+                    }
+
+                    lineNumber++;
                 }
+                game.setsAll = points;
+                game.sets = tools.getSetsPoitns(points);
+                game.setsFinal = tools.getSetsFinalPoints(game.sets);
 
-                lineNumber++;
+                games.push(game);
+            } else {
+                notCsvFiles.push(file);
             }
-            game.setsAll = points;
-            game.sets = tools.getSetsPoitns(points);
-            game.setsFinal = tools.getSetsFinalPoints(game.sets);
-
-            games.push(game);
-        } else {
-            notCsvFiles.push(file);
-        }
-    });
+        });
+        
+    } catch (error) {
+        console.log('FILE: ' + fileGlobal);
+        console.log('|--------------------  ERROR  --------------------|');
+        console.log(JSON.stringify(error));
+    }
 
     if (notCsvFiles.length > 0) {
-        console.log('| ---------- ' + 'FILES NOT CSV TYPE FOUND' + ' ---------- |');
+        console.log('|--------------------  FILES NOT CSV TYPE FOUND  --------------------|');
         console.log(notCsvFiles);
     }
 
