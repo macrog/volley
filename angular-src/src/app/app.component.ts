@@ -137,16 +137,17 @@ export class AppComponent implements OnInit  {
 
     public deleteGame() {
         this.workInProgress = true;
-        this.gameService.deleteGamesFromDB('this.games').subscribe(
-            (res: NodeResponse) => {
-                if (res.success) { console.log(res.message); }
-                this.workInProgress = false;
-            },
-            err => {
-                console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
-                this.workInProgress = false;
-            }
-        );
+        this.gameService.deleteGamesFromDB('this.games')
+            .subscribe(
+                (res: NodeResponse) => {
+                    if (res.success) { console.log(res.message); }
+                    this.workInProgress = false;
+                },
+                err => {
+                    console.warn(err.url + ' - ' + err.status + ' ' + err.statusText + '. Reading from DATA folder error...');
+                    this.workInProgress = false;
+                }
+            );
     }
 
     public deleteAllGame() {

@@ -3,12 +3,12 @@
 
     <div id="main-container">
         <div class="m-t-10"> <!-- top btns + number of games -->
-            <button type="button" [disabled]="workInProgress" class="btn btn-secondary btn-sm" (click)="readLocalDataFolder();">READ Local</button>
-            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm" (click)="uploadGamesToDB();">UPLOAD</button>
-            <button type="button" [disabled]="workInProgress" class="btn btn-secondary btn-sm" (click)="readDBGames();">READ DB</button>
-            <button type="button" [disabled]="workInProgress" class="btn btn-danger btn-sm" (click)="deleteGame();">DELETE ID</button>
-            <button type="button" [disabled]="workInProgress" class="btn btn-danger btn-sm" (click)="deleteAllGame();">X</button>
-            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm" (click)="clearScreen();">CLEAR</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-secondary btn-sm" (click)="readLocalDataFolder();">READ & UPLOAD</button>
+            <!-- <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm" (click)="uploadGamesToDB();">UPLOAD</button> -->
+            <!-- <button type="button" [disabled]="workInProgress" class="btn btn-secondary btn-sm" (click)="readDBGames();">READ DB</button> -->
+            <!-- <button type="button" [disabled]="workInProgress" class="btn btn-danger btn-sm" (click)="deleteGame();">DELETE ID</button> -->
+            <button type="button" [disabled]="workInProgress" class="btn btn-danger btn-sm" (click)="deleteAllGame();">REMOVE ALL FROM DB</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm" (click)="clearScreen();">CLEAR SCREEN</button>
 
             <label><input type="checkbox" [(ngModel)]="showStats" /> STATS</label>
 
@@ -16,7 +16,7 @@
                 {{numberFilesRead}} {{numberFilesRead === 1 ? 'game' : 'games'}}
             </div>
 
-            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm float-right" (click)="searchDB();">search DB</button>
+            <button type="button" [disabled]="workInProgress" class="btn btn-primary btn-sm float-right" (click)="searchDB();">SEARCH DB</button>
             <div class="float-right line-height-btn-sm-size m-r-20 bold flex" *ngIf="workInProgress">
                 <div class="loader m-r-5"></div>
                 <div class="text-anim line-height-btn-sm-size">
@@ -181,7 +181,7 @@
             </div>
         </div>
         <div class="container p-l-r-0 m-t-10 overflow" id="games-container" *ngIf="games && showStats">
-            <div class="col-12 flex" *ngIf="stats.length > 0">
+            <div class="col-12 flex" *ngIf="stats && stats.length > 0">
                 <div class="col-6">
                     <div class="col-12 flex">
                         <div class="col-2 bold">Result</div>
@@ -242,7 +242,7 @@
                 </div>
             </div>
 
-            <div *ngIf="stats.length === 0">
+            <div *ngIf="!stats || stats.length === 0">
                 NO STATS AVAILABLE
             </div>
         </div>
